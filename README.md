@@ -7,11 +7,14 @@
 > and a report where **every number and every name is receipted** to the execution
 > that produced it.
 
+![Proofsheet — Numbers you can defend](docs/cover.png)
+
 | | |
 |---|---|
 | **Live demo** | **http://149.28.225.246** |
-| **Example report** | http://149.28.225.246/r/8f278294-fd75-4ddd-9b14-f79943cc1058 |
-| **Deterministic replay** | http://149.28.225.246/r/aad7de25-8ca5-492a-801a-d52e88e67337 |
+| **Demo video (98s, narrated)** | [docs/demo.mp4](docs/demo.mp4) |
+| **Example report** | http://149.28.225.246/r/8b3dc46d-6892-47d1-b3f3-cf3c5e545912 |
+| **Deterministic replay** | http://149.28.225.246/r/88d3da25-a5b1-4463-a957-91b785860968 |
 | **Containment drill** | http://149.28.225.246/drill |
 | **Architecture page** | http://149.28.225.246/how |
 | **Source** | https://github.com/PhiBao/proofsheet |

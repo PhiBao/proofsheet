@@ -569,6 +569,12 @@ pub fn audit_cleaned(path: &std::path::Path, profile: &Profile) -> Vec<String> {
             .filter(|v| !v.trim().is_empty())
             .collect();
         if vals.is_empty() {
+            if col.non_null > 0 {
+                problems.push(format!(
+                    "column '{}' is entirely empty after cleaning (it had {} values)",
+                    col.name, col.non_null
+                ));
+            }
             continue;
         }
 

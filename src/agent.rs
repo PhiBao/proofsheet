@@ -325,7 +325,7 @@ async fn repair_code(
 ) -> Result<String> {
     push_log(state, run, "info", "Requesting a repair from the code model").await?;
     let prompt = format!(
-        "The script failed inside the sandbox.\n\nFAILURE:\n{error}\n\nPREVIOUS SCRIPT:\n```python\n{code}\n```\n\nDATASET PROFILE:\n{}\n\nPLAN:\n{}\n\nFix the script. Keep the artifact contract identical. Output only the corrected python code block.",
+        "The script failed or produced a degenerate result inside the sandbox.\n\nFAILURE:\n{error}\n\nPREVIOUS SCRIPT:\n```python\n{code}\n```\n\nDATASET PROFILE:\n{}\n\nPLAN:\n{}\n\nFix the root cause. Do not add a guard that returns zero or N/A; inspect the actual values and fix the parser or filter. `pd.Timestamp` does not accept a `format` argument. Keep the artifact contract identical. Output only the corrected python code block.",
         compact_profile(dataset),
         serde_json::to_string(plan)?
     );
@@ -508,6 +508,26 @@ fn parse_metrics(raw: &str, plan: &Plan) -> Result<Vec<Metric>> {
     if out.is_empty() {
         bail!("metrics.json contained no metrics");
     }
+
+    // A run that "succeeds" with an empty analysis is not a success. This is the
+    // gate that stops a plausible-looking zero report from being stamped.
+    let numeric: Vec<f64> = out
+        .iter()
+        .filter(|m| m.kind != "text")
+        .map(|m| m.value)
+        .collect();
+    if !numeric.is_empty() && numeric.iter().all(|v| v.abs() < 1e-9) {
+        bail!("execution produced only zero-valued metrics; a parser or filter dropped the data");
+    }
+    for m in out.iter().filter(|m| m.kind == "text") {
+        let t = m.text.as_deref().unwrap_or("").trim().to_lowercase();
+        if t.is_empty()
+            || ["n/a", "na", "none", "null", "unknown", "nan", "-"]
+                .contains(&t.as_str())
+        {
+            bail!("text metric '{}' has no usable value", m.id);
+        }
+    }
     // Every planned metric must be present and receipted.
     for spec in &plan.metrics {
         if !out.iter().any(|m| m.id == spec.id) {
@@ -677,10 +697,11 @@ ARTIFACT CONTRACT — write all four files into /work:
 SCRIPT RULES:
 - Read with pandas.read_csv('/work/input.csv', dtype=str, keep_default_na=False, encoding='utf-8-sig').
 - Parse numbers explicitly: strip $ € £ ¥ ₹ and thousands separators, treat (123) as negative, strip % when appropriate.
-- Parse dates with an explicit ordered list of formats (strptime). Do not rely on dateutil inference. Count unparseable rows.
+- Parse dates with an explicit ordered list of formats using `datetime.strptime` or `pd.to_datetime(..., format=fmt, errors='coerce')`. Do NOT use `pd.Timestamp(..., format=...)`: it does not accept a format keyword and silently returns NaT for every row. Do not rely on dateutil inference. Count unparseable rows.
 - Deduplicate exact rows before aggregating when duplicates exist.
 - If a value required for a metric is missing or unparseable, EXCLUDE that row from the metric and print the excluded count. Do not silently impute zeros or ones.
 - Sort periods chronologically. Coerce unexpected values with errors='coerce' and count them.
+- Guard every value before calling `.strftime` or string methods: `if pd.isna(x): ...`. Never assume a date parsed; a single bad value must not crash the pipeline.
 - If a text column has a `values` list, map variants that differ only by case, whitespace or punctuation to ONE canonical label.
 - After cleaning, the orchestrator re-profiles cleaned.csv in Rust. The run FAILS if a categorical column still contains case/punctuation aliases, if a numeric column is still under 95% parseable, or if a date column still contains unparseable values. Clean until the audit passes.
 - matplotlib.use('Agg') before pyplot.

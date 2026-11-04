@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --paper: #f5f0e4;
+    --ink: #17150f;
+    --muted: #6b6555;
+    --green: #1e6b4c;
+    --serif: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1440px; height: 900px; overflow: hidden; }
+  body {
+    background: var(--ink); color: var(--paper); font-family: var(--sans);
+    padding: 90px 92px; position: relative;
+  }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #a8a08c; }
+  h1 {
+    font-family: var(--serif); font-weight: 500; font-size: 92px; line-height: .96;
+    letter-spacing: -.035em; margin: 80px 0 0; max-width: 18ch;
+  }
+  h1 em { font-style: italic; color: #b9c9b9; font-weight: 400; }
+  .urls { margin-top: 48px; display: flex; gap: 64px; flex-wrap: wrap; }
+  .url { font-family: var(--mono); font-size: 14px; letter-spacing: .04em; color: #e8e1cf; }
+  .url span { display: block; font-size: 9px; letter-spacing: .14em; color: #8e8776; text-transform: uppercase; margin-bottom: 6px; }
+  .foot { position: absolute; left: 92px; bottom: 70px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: #8e8776; }
+  .mark { position: absolute; right: 92px; bottom: 64px; opacity: .9; }
+</style>
+</head>
+<body>
+  <div class="eyebrow">Proofsheet · Vultr Agent Rush 2026</div>
+  <h1>Every number has a <em>receipt.</em></h1>
+  <div class="urls">
+    <div class="url"><span>live demo</span>149.28.225.246</div>
+    <div class="url"><span>source</span>github.com/PhiBao/proofsheet</div>
+    <div class="url"><span>containment</span>149.28.225.246/drill</div>
+  </div>
+  <div class="foot">Built on Vultr Cloud Compute · gVisor · Serverless Inference</div>
+  <svg class="mark" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+    <rect width="64" height="64" rx="13" fill="#F5F0E4"/>
+    <path d="M17 11h30v35.5l-4.4-3-4.5 3-4.5-3-4.5 3-4.5-3-4.6 3V11z" fill="#17150F"/>
+    <path d="M23 22h18M23 28h18M23 34h9" stroke="#F5F0E4" stroke-width="2.4"/>
+    <circle cx="46" cy="45" r="12" fill="#1E6B4C"/>
+    <path d="M40 45l4 4 8-9" stroke="#F5F0E4" stroke-width="3.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</body>
+</html>
