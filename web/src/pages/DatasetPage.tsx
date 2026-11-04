@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api, ApiError } from "../lib/api";
-import type { Dataset, Report, Run, RunSummary } from "../lib/types";
+import type { Dataset, Definition, Plan, Report, Run, RunSummary } from "../lib/types";
 import { formatBytes, formatDate, isolationLabel, shortHash } from "../lib/format";
 import { ProfileTable } from "../components/ProfileTable";
 import { RunCard } from "../components/RunCard";
 import { ReportView } from "../components/ReportView";
+import { DefinitionPanel } from "../components/DefinitionPanel";
 
 export function DatasetPage() {
   const { id } = useParams<{ id: string }>();
@@ -16,6 +17,13 @@ export function DatasetPage() {
   const [question, setQuestion] = useState("");
   const [askError, setAskError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [planning, setPlanning] = useState(false);
+  const [preview, setPreview] = useState<{
+    plan: Plan;
+    definition: Definition;
+    question: string;
+  } | null>(null);
+  const [planError, setPlanError] = useState("");
   const [runId, setRunId] = useState<string | null>(null);
   const [report, setReport] = useState<Report | null>(null);
   const runRef = useRef<HTMLDivElement | null>(null);
@@ -58,16 +66,39 @@ export function DatasetPage() {
     ];
   }, [dataset]);
 
-  const ask = async () => {
+  const planAnalysis = async () => {
     if (!dataset || question.trim().length < 3) return;
-    setBusy(true);
+    setPlanning(true);
     setAskError("");
+    setPlanError("");
     try {
-      const { run_id } = await api.ask(dataset.id, question.trim());
+      const { plan, definition, question: cleaned } = await api.plan(
+        dataset.id,
+        question.trim()
+      );
+      setPreview({ plan, definition, question: cleaned });
+    } catch (e) {
+      setAskError(e instanceof ApiError ? e.message : "could not plan the analysis");
+    } finally {
+      setPlanning(false);
+    }
+  };
+
+  const approveAndRun = async () => {
+    if (!dataset || !preview) return;
+    setBusy(true);
+    setPlanError("");
+    try {
+      const { run_id } = await api.startRun(dataset.id, {
+        question: preview.question,
+        plan: preview.plan,
+        definition: preview.definition,
+      });
+      setPreview(null);
       setRunId(run_id);
       setTimeout(() => runRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
     } catch (e) {
-      setAskError(e instanceof ApiError ? e.message : "could not start the analysis");
+      setPlanError(e instanceof ApiError ? e.message : "could not start the analysis");
     } finally {
       setBusy(false);
     }
@@ -178,41 +209,58 @@ export function DatasetPage() {
 
       <div className="dataset-grid">
         <div style={{ minWidth: 0 }}>
-          <ProfileTable profile={dataset.profile} />
-
-          <div className="panel" ref={runRef}>
+          <div className="panel" ref={runRef} style={{ marginTop: 0 }}>
             <div className="panel-head">
               <div className="panel-title">Ask the analyst</div>
-              <div className="eyebrow">The plan is visible; the code is executed</div>
+              <div className="eyebrow">Plan → definition → execution → receipt</div>
             </div>
-            <div className="ask">
-              <textarea
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
-                placeholder="What was monthly net revenue, and which country generated the most?"
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) ask();
-                }}
+            {!preview && (
+              <>
+                <div className="ask">
+                  <textarea
+                    value={question}
+                    onChange={(e) => setQuestion(e.target.value)}
+                    placeholder="What was monthly net revenue, and which country generated the most?"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) planAnalysis();
+                    }}
+                  />
+                  <div className="ask-foot">
+                    <span className="ask-hint">⌘/Ctrl + Enter · max 1,200 chars</span>
+                    <button
+                      className="btn btn-primary"
+                      onClick={planAnalysis}
+                      disabled={planning || question.trim().length < 3}
+                    >
+                      {planning ? "Planning…" : "Plan analysis"}
+                    </button>
+                  </div>
+                </div>
+                {askError && <div className="upload-error">{askError}</div>}
+                <div className="suggestions">
+                  {suggestions.map((s) => (
+                    <button key={s} className="chip-btn" onClick={() => setQuestion(s)}>
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+            {preview && (
+              <DefinitionPanel
+                plan={preview.plan}
+                definition={preview.definition}
+                onChange={(definition) => setPreview({ ...preview, definition })}
+                onRun={approveAndRun}
+                onCancel={() => setPreview(null)}
+                busy={busy}
+                error={planError}
               />
-              <div className="ask-foot">
-                <span className="ask-hint">⌘/Ctrl + Enter · max 1,200 chars</span>
-                <button
-                  className="btn btn-primary"
-                  onClick={ask}
-                  disabled={busy || question.trim().length < 3}
-                >
-                  {busy ? "Dispatching…" : "Run analysis"}
-                </button>
-              </div>
-            </div>
-            {askError && <div className="upload-error">{askError}</div>}
-            <div className="suggestions">
-              {suggestions.map((s) => (
-                <button key={s} className="chip-btn" onClick={() => setQuestion(s)}>
-                  {s}
-                </button>
-              ))}
-            </div>
+            )}
+          </div>
+
+          <div style={{ marginTop: 30 }}>
+            <ProfileTable profile={dataset.profile} />
           </div>
 
           {runId && <RunCard runId={runId} onComplete={onComplete} />}
@@ -250,7 +298,7 @@ export function DatasetPage() {
               <dt>Uploaded</dt>
               <dd>{formatDate(dataset.created_at)}</dd>
               <dt>Sandbox</dt>
-              <dd>{isolationLabel(null) === "unknown" ? "—" : ""}gVisor / Docker</dd>
+              <dd>gVisor · network off</dd>
             </dl>
           </div>
 
@@ -273,9 +321,9 @@ export function DatasetPage() {
           <div className="side-block">
             <div className="eyebrow">What runs</div>
             <div className="muted small" style={{ marginTop: 8, lineHeight: 1.55 }}>
-              A Rust planner call, a pandas script, a disposable sandbox, and a claim verifier. No
-              row of your file is sent anywhere except the model prompt, which receives schema and
-              samples — not the full file.
+              A Rust planner call, a pandas script, a disposable sandbox, an independent checker, and a
+              claim verifier. Model prompts receive column shapes and redacted examples, not your
+              raw rows. The full file stays on this VM and inside the sandbox.
             </div>
           </div>
         </aside>

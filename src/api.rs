@@ -95,6 +95,15 @@ impl From<sqlx::Error> for ApiError {
     }
 }
 
+impl From<serde_json::Error> for ApiError {
+    fn from(e: serde_json::Error) -> Self {
+        Self {
+            status: StatusCode::INTERNAL_SERVER_ERROR,
+            message: format!("json error: {e}"),
+        }
+    }
+}
+
 impl From<std::io::Error> for ApiError {
     fn from(e: std::io::Error) -> Self {
         Self {
@@ -113,9 +122,13 @@ pub fn router() -> Router<Arc<AppState>> {
         .route("/datasets", post(upload_dataset))
         .route("/datasets/{id}", get(get_dataset))
         .route("/datasets/{id}/ask", post(ask))
+        .route("/datasets/{id}/plan", post(plan_dataset))
+        .route("/datasets/{id}/run", post(run_dataset))
         .route("/runs/{id}", get(get_run))
         .route("/runs/{id}/report", get(get_report))
         .route("/runs/{id}/replay", post(replay))
+        .route("/runs/{id}/challenge", post(challenge))
+        .route("/runs/{id}/bundle", get(bundle))
         .route("/artifacts/{id}/{file}", get(artifact))
         .route("/drills", post(start_drill))
         .route("/drills/latest", get(latest_drill))
@@ -291,6 +304,7 @@ async fn ask(
         status: "queued".into(),
         attempt: 0,
         plan: None,
+        definition: None,
         code: None,
         stdout: String::new(),
         stderr: String::new(),
@@ -300,6 +314,10 @@ async fn ask(
         isolation: None,
         oom_killed: false,
         metrics: vec![],
+        chart_data: None,
+        chart_audit: None,
+        consensus: None,
+        comparison: None,
         template: None,
         notes_markdown: None,
         claims: vec![],
@@ -315,6 +333,255 @@ async fn ask(
     let st = state.clone();
     tokio::spawn(async move { agent::execute_ask(st, run_id).await; });
     Ok(Json(json!({ "run_id": run.id })))
+}
+
+#[derive(Deserialize)]
+struct PlanBody {
+    question: String,
+}
+
+#[derive(Deserialize)]
+struct RunBody {
+    question: String,
+    plan: Plan,
+    definition: Definition,
+}
+
+fn clean_question(q: &str) -> Result<String, ApiError> {
+    let q = q.trim().to_string();
+    if q.len() < 3 {
+        return Err(ApiError::bad("ask a real question"));
+    }
+    if q.len() > 1200 {
+        return Err(ApiError::bad("question is too long"));
+    }
+    Ok(q)
+}
+
+async fn plan_dataset(
+    State(state): State<Arc<AppState>>,
+    Path(id): Path<String>,
+    Json(body): Json<PlanBody>,
+) -> Result<Json<Value>, ApiError> {
+    let question = clean_question(&body.question)?;
+    let dataset = store::get_dataset(&state.db, &id)
+        .await?
+        .ok_or_else(|| ApiError::not_found("dataset not found"))?;
+    let (plan, definition) = agent::generate_plan(&state, &dataset, &question).await?;
+    Ok(Json(json!({ "plan": plan, "definition": definition, "question": question })))
+}
+
+async fn run_dataset(
+    State(state): State<Arc<AppState>>,
+    Path(id): Path<String>,
+    Json(body): Json<RunBody>,
+) -> Result<Json<Value>, ApiError> {
+    let question = clean_question(&body.question)?;
+    if !state.sandbox_health.ready {
+        return Err(ApiError {
+            status: StatusCode::SERVICE_UNAVAILABLE,
+            message: "the sandbox is not ready on this host; refusing to run untrusted code".into(),
+        });
+    }
+    let dataset = store::get_dataset(&state.db, &id)
+        .await?
+        .ok_or_else(|| ApiError::not_found("dataset not found"))?;
+    let mut plan = body.plan;
+    plan.metrics.retain(|m| !m.id.trim().is_empty());
+    if plan.metrics.is_empty() {
+        return Err(ApiError::bad("the plan needs at least one metric"));
+    }
+    if plan.metrics.len() > 6 {
+        plan.metrics.truncate(6);
+    }
+    let definition_json = serde_json::to_value(&body.definition)?;
+    let definition = agent::parse_definition(Some(&definition_json));
+
+    let run = Run {
+        id: Uuid::new_v4().to_string(),
+        dataset_id: dataset.id,
+        question,
+        mode: "ask".into(),
+        status: "queued".into(),
+        attempt: 0,
+        plan: Some(plan),
+        definition: Some(definition),
+        code: None,
+        stdout: String::new(),
+        stderr: String::new(),
+        exit_code: None,
+        duration_ms: None,
+        sandbox_id: None,
+        isolation: None,
+        oom_killed: false,
+        metrics: vec![],
+        chart_data: None,
+        chart_audit: None,
+        consensus: None,
+        comparison: None,
+        template: None,
+        notes_markdown: None,
+        claims: vec![],
+        clean_report: None,
+        log: vec![],
+        error: None,
+        replayed_from: None,
+        created_at: Utc::now().to_rfc3339(),
+        completed_at: None,
+    };
+    store::insert_run(&state.db, &run).await?;
+    let run_id = run.id.clone();
+    let st = state.clone();
+    tokio::spawn(async move { agent::execute_prepared(st, run_id).await; });
+    Ok(Json(json!({ "run_id": run.id })))
+}
+
+async fn challenge(
+    State(state): State<Arc<AppState>>,
+    Path(id): Path<String>,
+) -> Result<Json<Value>, ApiError> {
+    let run = store::get_run(&state.db, &id)
+        .await?
+        .ok_or_else(|| ApiError::not_found("run not found"))?;
+    if run.status != "complete" {
+        return Err(ApiError::conflict("only a complete report can be challenged"));
+    }
+    let template = run
+        .template
+        .clone()
+        .ok_or_else(|| ApiError::conflict("this run has no note to challenge"))?;
+    let tampered = format!(
+        "{}\n\n## Bonus claim\nThe analysis proves revenue grew 47% this quarter and the top segment was {{{{m:made_up_metric}}}}.",
+        template
+    );
+    let flags = verify::verify_template(&tampered, &run.metrics);
+    let (markdown, _) = verify::render(&tampered, &run.metrics);
+    Ok(Json(json!({
+        "markdown": markdown,
+        "flags": flags,
+        "passed": flags.is_empty(),
+        "note": "This is the real verifier applied to a deliberately tampered note. The production report is untouched."
+    })))
+}
+
+fn integrity_hash(run: &Run, dataset: &Dataset) -> String {
+    let mut h = Sha256::new();
+    h.update(dataset.sha256.as_bytes());
+    h.update(
+        run.definition
+            .as_ref()
+            .map(|d| serde_json::to_string(d).unwrap_or_default())
+            .unwrap_or_default()
+            .as_bytes(),
+    );
+    h.update(run.code.as_deref().unwrap_or("").as_bytes());
+    h.update(serde_json::to_string(&run.metrics).unwrap_or_default().as_bytes());
+    h.update(
+        run.chart_data
+            .as_ref()
+            .map(|c| serde_json::to_string(c).unwrap_or_default())
+            .unwrap_or_default()
+            .as_bytes(),
+    );
+    h.update(
+        run.consensus
+            .as_ref()
+            .map(|c| c.status.as_str())
+            .unwrap_or("")
+            .as_bytes(),
+    );
+    hex::encode(h.finalize())
+}
+
+fn build_bundle(run: &Run, dataset: &Dataset) -> Value {
+    let code_hash = hex::encode(Sha256::digest(run.code.as_deref().unwrap_or("").as_bytes()));
+    let ledger_hash = hex::encode(Sha256::digest(
+        serde_json::to_string(&run.metrics).unwrap_or_default().as_bytes(),
+    ));
+    let definition_hash = hex::encode(Sha256::digest(
+        serde_json::to_string(&run.definition)
+            .unwrap_or_default()
+            .as_bytes(),
+    ));
+    let chart_hash = hex::encode(Sha256::digest(
+        serde_json::to_string(&run.chart_data)
+            .unwrap_or_default()
+            .as_bytes(),
+    ));
+    json!({
+        "format": "proofsheet.assurance.v1",
+        "generated_at": Utc::now().to_rfc3339(),
+        "product": "Proofsheet",
+        "run": {
+            "id": run.id,
+            "question": run.question,
+            "mode": run.mode,
+            "created_at": run.created_at,
+            "completed_at": run.completed_at,
+            "attempt": run.attempt,
+        },
+        "dataset": {
+            "filename": dataset.filename,
+            "sha256": dataset.sha256,
+            "rows": dataset.rows,
+            "cols": dataset.cols,
+        },
+        "definition": run.definition,
+        "plan": run.plan,
+        "execution": {
+            "code": run.code,
+            "code_sha256": code_hash,
+            "sandbox_id": run.sandbox_id,
+            "isolation": run.isolation,
+            "exit_code": run.exit_code,
+            "duration_ms": run.duration_ms,
+            "oom_killed": run.oom_killed,
+            "teardown": "container force-removed after the task",
+        },
+        "ledger": run.metrics,
+        "ledger_sha256": ledger_hash,
+        "chart_data": run.chart_data,
+        "chart_data_sha256": chart_hash,
+        "chart_audit": run.chart_audit,
+        "claims": run.claims,
+        "clean_report": run.clean_report,
+        "consensus": run.consensus,
+        "comparison": run.comparison,
+        "definition_sha256": definition_hash,
+        "hashes": {
+            "dataset_sha256": dataset.sha256,
+            "code_sha256": code_hash,
+            "ledger_sha256": ledger_hash,
+            "definition_sha256": definition_hash,
+            "chart_data_sha256": chart_hash,
+            "integrity_hash": integrity_hash(run, dataset),
+        },
+        "integrity_hash": integrity_hash(run, dataset),
+    })
+}
+
+async fn bundle(
+    State(state): State<Arc<AppState>>,
+    Path(id): Path<String>,
+) -> Result<Response, ApiError> {
+    let run = store::get_run(&state.db, &id)
+        .await?
+        .ok_or_else(|| ApiError::not_found("run not found"))?;
+    let dataset = store::get_dataset(&state.db, &run.dataset_id)
+        .await?
+        .ok_or_else(|| ApiError::not_found("dataset not found"))?;
+    let bytes = serde_json::to_vec_pretty(&build_bundle(&run, &dataset))?;
+    let mut response = Response::new(axum::body::Body::from(bytes));
+    response.headers_mut().insert(
+        header::CONTENT_TYPE,
+        HeaderValue::from_static("application/json"),
+    );
+    response.headers_mut().insert(
+        header::CONTENT_DISPOSITION,
+        HeaderValue::from_str(&format!("attachment; filename=\"proofsheet-{}.json\"", run.id))
+            .unwrap_or(HeaderValue::from_static("attachment")),
+    );
+    Ok(response)
 }
 
 async fn get_run(
@@ -340,6 +607,7 @@ async fn get_report(
     let dataset = store::get_dataset(&state.db, &run.dataset_id)
         .await?
         .ok_or_else(|| ApiError::not_found("dataset not found"))?;
+    let integrity = integrity_hash(&run, &dataset);
     let template = run.template.clone().unwrap_or_default();
     let (markdown, receipted) = verify::render(&template, &run.metrics);
     let claims: Vec<RenderedClaim> = run
@@ -362,6 +630,7 @@ async fn get_report(
         receipted,
         unreceipted: run.claims.len(),
         replayed_from: run.replayed_from.clone(),
+        integrity_hash: integrity,
     };
     Ok(Json(json!({ "report": report })))
 }
@@ -406,6 +675,7 @@ async fn replay(
         status: "queued".into(),
         attempt: 0,
         plan: source.plan.clone(),
+        definition: source.definition.clone(),
         code: None,
         stdout: String::new(),
         stderr: String::new(),
@@ -415,6 +685,10 @@ async fn replay(
         isolation: None,
         oom_killed: false,
         metrics: vec![],
+        chart_data: None,
+        chart_audit: None,
+        consensus: None,
+        comparison: None,
         template: None,
         notes_markdown: None,
         claims: vec![],
@@ -527,6 +801,8 @@ async fn latest_drill(State(state): State<Arc<AppState>>) -> Result<Json<Value>,
 
 async fn proof(State(state): State<Arc<AppState>>) -> Json<Value> {
     let (passed, total) = verify::selftest();
+    let golden = crate::eval::run();
+    let golden_passed = golden.iter().filter(|c| c.passed).count();
 
     // Live fixture assertions: these are computed on every request, not hard-coded.
     let mut evals = Vec::new();
@@ -573,6 +849,7 @@ async fn proof(State(state): State<Arc<AppState>>) -> Json<Value> {
 
     Json(json!({
         "verifier": { "passed": passed, "total": total },
+        "golden": { "passed": golden_passed, "total": golden.len(), "checks": golden },
         "fixtures": evals,
         "containment": drill.map(|d| json!({
             "id": d.id,

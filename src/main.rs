@@ -4,6 +4,7 @@ mod app;
 mod config;
 mod db;
 mod drill;
+mod eval;
 mod inference;
 mod models;
 mod profile;
@@ -83,6 +84,7 @@ async fn main() -> Result<()> {
         started_at: std::time::Instant::now(),
         hostname,
         canary_path,
+        run_slots: Arc::new(tokio::sync::Semaphore::new(2)),
     });
 
     let app = Router::new()

@@ -56,6 +56,30 @@ export const api = {
   dataset: (id: string) =>
     request<{ dataset: Dataset; runs: RunSummary[] }>(`/datasets/${id}`),
 
+  plan: (id: string, question: string) =>
+    request<{ plan: import("./types").Plan; definition: import("./types").Definition; question: string }>(
+      `/datasets/${id}/plan`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question }),
+      }
+    ),
+
+  startRun: (
+    id: string,
+    body: {
+      question: string;
+      plan: import("./types").Plan;
+      definition: import("./types").Definition;
+    }
+  ) =>
+    request<{ run_id: string }>(`/datasets/${id}/run`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    }),
+
   ask: (id: string, question: string) =>
     request<{ run_id: string }>(`/datasets/${id}/ask`, {
       method: "POST",
@@ -80,8 +104,20 @@ export const api = {
   drill: (id: string) => request<{ drill: Drill }>(`/drills/${id}`),
 
   latestDrill: () => request<{ drill: Drill | null }>("/drills/latest"),
+
+  challenge: (id: string) =>
+    request<{
+      markdown: string;
+      flags: import("./types").ClaimFlag[];
+      passed: boolean;
+      note: string;
+    }>(`/runs/${id}/challenge`, { method: "POST" }),
 };
 
 export function artifactUrl(runId: string, file: string): string {
   return `/api/artifacts/${runId}/${file}`;
+}
+
+export function bundleUrl(runId: string): string {
+  return `/api/runs/${runId}/bundle`;
 }

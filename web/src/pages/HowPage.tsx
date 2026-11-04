@@ -156,6 +156,39 @@ export function HowPage() {
             <figcaption>Claim verification: the prose is downstream of execution, not parallel to it.</figcaption>
           </figure>
 
+          <h2>Four trust layers</h2>
+          <div className="steps" style={{ gridTemplateColumns: "1fr 1fr", marginTop: 14 }}>
+            <div className="step" style={{ borderLeft: 0, paddingLeft: 0 }}>
+              <h3 style={{ fontSize: 20 }}>1. Definition lock</h3>
+              <p>
+                Before execution, the planner proposes the business rules and the user approves
+                them: shipping in or out, which statuses count, how missing values are handled,
+                how ambiguous dates are read. The approved definition is stored with the run,
+                included in the receipt, and reused on replay.
+              </p>
+              <h3 style={{ fontSize: 20, marginTop: 16 }}>2. Execution ledger</h3>
+              <p>
+                The sandbox writes named metrics. The note may only cite them through
+                placeholders, so the prose cannot invent a figure. Every claim links to the code,
+                stdout, isolation level and teardown.
+              </p>
+            </div>
+            <div className="step">
+              <h3 style={{ fontSize: 20 }}>3. Chart audit</h3>
+              <p>
+                The chart emits its plotted series alongside the PNG. Rust checks that a summed
+                series matches the ledger, that the top category matches a receipted name, that
+                the peak month matches, and that every approved assumption is recorded.
+              </p>
+              <h3 style={{ fontSize: 20, marginTop: 16 }}>4. Independent execution</h3>
+              <p>
+                A second model, which never sees the analyst script, recomputes the same metrics
+                from the approved definition in a separate sandbox. Agreement produces the
+                two-execution stamp; disagreement withholds it.
+              </p>
+            </div>
+          </div>
+
           <h2>Architecture</h2>
           <p>
             The backend is a single Rust binary (Axum + Tokio + SQLx) on a Vultr Cloud Compute
@@ -275,7 +308,36 @@ export function HowPage() {
               <dd>
                 {health ? `${health.verifier.passed}/${health.verifier.total}` : "—"} self-tests
               </dd>
+              <dt>Golden</dt>
+              <dd>
+                {proof ? `${proof.golden.passed}/${proof.golden.total}` : "—"} product checks
+              </dd>
             </dl>
+          </div>
+
+          <div className="aside-card">
+            <div className="eyebrow">Golden checks · {proof ? `${proof.golden.passed}/${proof.golden.total}` : "…"}</div>
+            <div style={{ marginTop: 10, maxHeight: 280, overflow: "auto" }}>
+              {proof?.golden.checks.map((c) => (
+                <div
+                  key={c.name}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: 10,
+                    padding: "6px 0",
+                    borderBottom: "1px solid var(--rule)",
+                    fontSize: 11.5,
+                  }}
+                >
+                  <span>{c.name}</span>
+                  <span style={{ color: c.passed ? "var(--green)" : "var(--red)", fontFamily: "var(--mono)", fontSize: 9 }}>
+                    {c.passed ? "pass" : "fail"}
+                  </span>
+                </div>
+              ))}
+              {!proof && <div className="muted small">Loading…</div>}
+            </div>
           </div>
 
           <div className="aside-card">

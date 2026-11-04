@@ -32,8 +32,8 @@ export function Landing() {
     }
   };
 
-  const fixturePassed = proof?.fixtures.filter((f) => f.passed).length ?? 0;
-  const fixtureTotal = proof?.fixtures.length ?? 0;
+  const goldenPassed = proof?.golden?.passed ?? 0;
+  const goldenTotal = proof?.golden?.total ?? 0;
 
   return (
     <>
@@ -117,9 +117,9 @@ export function Landing() {
             </div>
             <div className="stat">
               <div className="stat-value">
-                {fixtureTotal ? `${fixturePassed}/${fixtureTotal}` : "—"}
+                {goldenTotal ? `${goldenPassed}/${goldenTotal}` : "—"}
               </div>
-              <div className="stat-label">Dirty-fixture checks passing</div>
+              <div className="stat-label">Golden product checks passing</div>
             </div>
           </div>
         </section>
@@ -140,18 +140,20 @@ export function Landing() {
             </div>
             <div className="step">
               <div className="step-num">02</div>
-              <h3>Plan. Then execute.</h3>
+              <h3>Lock the definition. Then execute.</h3>
               <p>
-                The model writes a pandas script. A separate control plane runs it with no
-                network, no secrets, a read-only root, and hard time, memory and process caps.
+                Before any code runs, you approve the business rules: shipping, status scope,
+                missing values, date order. The model writes the script; a separate control plane
+                runs it with no network, no secrets, a read-only root, and hard caps.
               </p>
             </div>
             <div className="step">
               <div className="step-num">03</div>
-              <h3>Receipt every claim.</h3>
+              <h3>Receipt every claim. Check it twice.</h3>
               <p>
-                The note may only cite placeholders resolved from the execution ledger. Literal
-                numbers are caught, repaired, or flagged. A failed audit withholds the stamp.
+                The note may only cite placeholders resolved from the execution ledger. A second,
+                independent implementation recomputes the metrics and the chart series. Disagreement
+                withholds the stamp.
               </p>
             </div>
           </div>

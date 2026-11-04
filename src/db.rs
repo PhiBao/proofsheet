@@ -37,6 +37,7 @@ pub async fn init(database_url: &str) -> Result<SqlitePool> {
             status TEXT NOT NULL,
             attempt INTEGER NOT NULL DEFAULT 0,
             plan_json TEXT,
+            definition_json TEXT,
             code TEXT,
             stdout TEXT NOT NULL DEFAULT '',
             stderr TEXT NOT NULL DEFAULT '',
@@ -46,6 +47,10 @@ pub async fn init(database_url: &str) -> Result<SqlitePool> {
             isolation TEXT,
             oom_killed INTEGER NOT NULL DEFAULT 0,
             metrics_json TEXT,
+            chart_data_json TEXT,
+            chart_audit_json TEXT,
+            consensus_json TEXT,
+            comparison_json TEXT,
             template TEXT,
             notes_markdown TEXT,
             claims_json TEXT,
@@ -86,6 +91,15 @@ pub async fn init(database_url: &str) -> Result<SqlitePool> {
     let _ = sqlx::query("ALTER TABLE runs ADD COLUMN replayed_from TEXT")
         .execute(&pool)
         .await;
+    for ddl in [
+        "ALTER TABLE runs ADD COLUMN definition_json TEXT",
+        "ALTER TABLE runs ADD COLUMN chart_data_json TEXT",
+        "ALTER TABLE runs ADD COLUMN chart_audit_json TEXT",
+        "ALTER TABLE runs ADD COLUMN consensus_json TEXT",
+        "ALTER TABLE runs ADD COLUMN comparison_json TEXT",
+    ] {
+        let _ = sqlx::query(ddl).execute(&pool).await;
+    }
 
     Ok(pool)
 }

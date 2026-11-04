@@ -54,10 +54,24 @@ export function statusLabel(status: string): string {
     executing: "Executing",
     repairing: "Repairing",
     verifying: "Verifying claims",
+    checking: "Independent check",
     complete: "Complete",
     failed: "Failed",
   };
   return map[status] || status;
+}
+
+export function formatMetricValue(value: number, kind: string): string {
+  if (kind === "currency") {
+    const sign = value < 0 ? "-" : "";
+    return `${sign}$${Math.abs(value).toLocaleString(undefined, {
+      minimumFractionDigits: Math.abs(value) % 1 === 0 ? 0 : 2,
+      maximumFractionDigits: 2,
+    })}`;
+  }
+  if (kind === "percent") return `${(value * 100).toFixed(1)}%`;
+  if (kind === "count") return Math.round(value).toLocaleString();
+  return value.toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
 
 export function isActive(status: string): boolean {

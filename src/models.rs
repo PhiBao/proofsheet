@@ -25,6 +25,9 @@ pub struct ColumnProfile {
     /// Distinct values for low-cardinality text columns; used to drive canonicalization.
     #[serde(default)]
     pub values: Vec<String>,
+    /// Date formats detected in this column, in canonical precedence order.
+    #[serde(default)]
+    pub date_formats: Vec<String>,
     /// Non-empty values that a correct cleaning pass must normalize (computed by Rust).
     #[serde(default)]
     pub dirty_values: i64,
@@ -116,6 +119,110 @@ pub struct LogLine {
     pub text: String,
 }
 
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct Definition {
+    pub summary: String,
+    pub assumptions: Vec<Assumption>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct Assumption {
+    pub key: String,
+    pub label: String,
+    pub value: String,
+    /// bool | enum | text
+    pub kind: String,
+    #[serde(default)]
+    pub options: Vec<String>,
+    #[serde(default)]
+    pub why: String,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct ChartData {
+    #[serde(default)]
+    pub metric_id: String,
+    /// sum | trend | breakdown
+    #[serde(default)]
+    pub aggregation: String,
+    #[serde(default)]
+    pub unit: String,
+    #[serde(default)]
+    pub series: Vec<ChartPoint>,
+    #[serde(default)]
+    pub top_category: Option<String>,
+    #[serde(default)]
+    pub rows_used: i64,
+    #[serde(default)]
+    pub applied_assumptions: Vec<String>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct ChartPoint {
+    pub label: String,
+    pub value: f64,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct EvalCheck {
+    pub name: String,
+    pub passed: bool,
+    pub detail: String,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct ChartAudit {
+    pub passed: bool,
+    pub checks: Vec<EvalCheck>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct Consensus {
+    /// agree | disagree | checker_failed | skipped
+    pub status: String,
+    pub model: String,
+    pub checks: Vec<EvalCheck>,
+    pub deltas: Vec<MetricDelta>,
+    pub checker_sandbox: Option<String>,
+    pub checker_exit: Option<i64>,
+    pub checker_code: Option<String>,
+    pub checker_stderr: String,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct MetricDelta {
+    pub id: String,
+    pub label: String,
+    pub primary: String,
+    pub checker: String,
+    pub diff_pct: f64,
+    pub agree: bool,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct Comparison {
+    pub source_run_id: String,
+    pub source_created_at: String,
+    #[serde(default)]
+    pub previous_rows: Option<i64>,
+    #[serde(default)]
+    pub current_rows: Option<i64>,
+    pub metrics: Vec<ComparisonMetric>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct ComparisonMetric {
+    pub id: String,
+    pub label: String,
+    pub kind: String,
+    pub previous: f64,
+    pub current: f64,
+    pub delta: f64,
+    pub delta_pct: Option<f64>,
+    pub previous_text: Option<String>,
+    pub current_text: Option<String>,
+}
+
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Run {
     pub id: String,
@@ -126,6 +233,7 @@ pub struct Run {
     pub status: String,
     pub attempt: i64,
     pub plan: Option<Plan>,
+    pub definition: Option<Definition>,
     pub code: Option<String>,
     pub stdout: String,
     pub stderr: String,
@@ -135,6 +243,10 @@ pub struct Run {
     pub isolation: Option<String>,
     pub oom_killed: bool,
     pub metrics: Vec<Metric>,
+    pub chart_data: Option<ChartData>,
+    pub chart_audit: Option<ChartAudit>,
+    pub consensus: Option<Consensus>,
+    pub comparison: Option<Comparison>,
     pub template: Option<String>,
     pub notes_markdown: Option<String>,
     pub claims: Vec<ClaimFlag>,
@@ -167,6 +279,8 @@ pub struct Report {
     pub unreceipted: usize,
     /// When this report came from a deterministic replay, the original run it replayed.
     pub replayed_from: Option<String>,
+    /// Hash over the dataset, definition, code, ledger and chart data.
+    pub integrity_hash: String,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]

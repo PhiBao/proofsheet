@@ -45,6 +45,20 @@ export interface MetricSpec {
   kind: string;
 }
 
+export interface Assumption {
+  key: string;
+  label: string;
+  value: string;
+  kind: "bool" | "enum" | "text" | string;
+  options: string[];
+  why: string;
+}
+
+export interface Definition {
+  summary: string;
+  assumptions: Assumption[];
+}
+
 export interface Plan {
   title: string;
   summary: string;
@@ -52,6 +66,72 @@ export interface Plan {
   analysis: string[];
   metrics: MetricSpec[];
   chart: string;
+}
+
+export interface ChartPoint {
+  label: string;
+  value: number;
+}
+
+export interface ChartData {
+  metric_id: string;
+  aggregation: string;
+  unit: string;
+  series: ChartPoint[];
+  top_category?: string | null;
+  rows_used: number;
+  applied_assumptions: string[];
+}
+
+export interface EvalCheck {
+  name: string;
+  passed: boolean;
+  detail: string;
+}
+
+export interface ChartAudit {
+  passed: boolean;
+  checks: EvalCheck[];
+}
+
+export interface MetricDelta {
+  id: string;
+  label: string;
+  primary: string;
+  checker: string;
+  diff_pct: number;
+  agree: boolean;
+}
+
+export interface Consensus {
+  status: string;
+  model: string;
+  checks: EvalCheck[];
+  deltas: MetricDelta[];
+  checker_sandbox?: string | null;
+  checker_exit?: number | null;
+  checker_code?: string | null;
+  checker_stderr: string;
+}
+
+export interface ComparisonMetric {
+  id: string;
+  label: string;
+  kind: string;
+  previous: number;
+  current: number;
+  delta: number;
+  delta_pct?: number | null;
+  previous_text?: string | null;
+  current_text?: string | null;
+}
+
+export interface Comparison {
+  source_run_id: string;
+  source_created_at: string;
+  previous_rows?: number | null;
+  current_rows?: number | null;
+  metrics: ComparisonMetric[];
 }
 
 export interface Metric {
@@ -95,6 +175,7 @@ export interface Run {
   status: string;
   attempt: number;
   plan: Plan | null;
+  definition: Definition | null;
   code: string | null;
   stdout: string;
   stderr: string;
@@ -104,6 +185,10 @@ export interface Run {
   isolation: string | null;
   oom_killed: boolean;
   metrics: Metric[];
+  chart_data: ChartData | null;
+  chart_audit: ChartAudit | null;
+  consensus: Consensus | null;
+  comparison: Comparison | null;
   template: string | null;
   notes_markdown: string | null;
   claims: ClaimFlag[];
@@ -132,6 +217,7 @@ export interface Report {
   receipted: number;
   unreceipted: number;
   replayed_from: string | null;
+  integrity_hash: string;
 }
 
 export interface DrillEvidence {
@@ -216,6 +302,11 @@ export interface RunSummary {
 
 export interface Proof {
   verifier: { passed: number; total: number };
+  golden: {
+    passed: number;
+    total: number;
+    checks: { name: string; passed: boolean; detail: string }[];
+  };
   fixtures: {
     id: string;
     filename: string;

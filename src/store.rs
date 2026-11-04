@@ -39,10 +39,11 @@ pub async fn get_dataset(db: &SqlitePool, id: &str) -> Result<Option<Dataset>> {
 
 pub async fn insert_run(db: &SqlitePool, r: &Run) -> Result<()> {
     sqlx::query(
-        "INSERT INTO runs (id, dataset_id, question, mode, status, attempt, plan_json, code, stdout, stderr,
-            exit_code, duration_ms, sandbox_id, isolation, oom_killed, metrics_json, template, notes_markdown,
+        "INSERT INTO runs (id, dataset_id, question, mode, status, attempt, plan_json, definition_json, code, stdout, stderr,
+            exit_code, duration_ms, sandbox_id, isolation, oom_killed, metrics_json, chart_data_json, chart_audit_json,
+            consensus_json, comparison_json, template, notes_markdown,
             claims_json, clean_report_json, log_json, error, replayed_from, created_at, completed_at)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     )
     .bind(&r.id)
     .bind(&r.dataset_id)
@@ -51,6 +52,7 @@ pub async fn insert_run(db: &SqlitePool, r: &Run) -> Result<()> {
     .bind(&r.status)
     .bind(r.attempt)
     .bind(r.plan.as_ref().map(serde_json::to_string).transpose()?)
+    .bind(r.definition.as_ref().map(serde_json::to_string).transpose()?)
     .bind(&r.code)
     .bind(&r.stdout)
     .bind(&r.stderr)
@@ -60,6 +62,10 @@ pub async fn insert_run(db: &SqlitePool, r: &Run) -> Result<()> {
     .bind(&r.isolation)
     .bind(r.oom_killed as i64)
     .bind(serde_json::to_string(&r.metrics)?)
+    .bind(r.chart_data.as_ref().map(serde_json::to_string).transpose()?)
+    .bind(r.chart_audit.as_ref().map(serde_json::to_string).transpose()?)
+    .bind(r.consensus.as_ref().map(serde_json::to_string).transpose()?)
+    .bind(r.comparison.as_ref().map(serde_json::to_string).transpose()?)
     .bind(&r.template)
     .bind(&r.notes_markdown)
     .bind(serde_json::to_string(&r.claims)?)
@@ -76,15 +82,16 @@ pub async fn insert_run(db: &SqlitePool, r: &Run) -> Result<()> {
 
 pub async fn save_run(db: &SqlitePool, r: &Run) -> Result<()> {
     sqlx::query(
-        "UPDATE runs SET status=?, attempt=?, plan_json=?, code=?, stdout=?, stderr=?, exit_code=?,
-            duration_ms=?, sandbox_id=?, isolation=?, oom_killed=?, metrics_json=?, template=?,
-            notes_markdown=?, claims_json=?, clean_report_json=?, log_json=?, error=?, replayed_from=?,
-            completed_at=?
+        "UPDATE runs SET status=?, attempt=?, plan_json=?, definition_json=?, code=?, stdout=?, stderr=?, exit_code=?,
+            duration_ms=?, sandbox_id=?, isolation=?, oom_killed=?, metrics_json=?, chart_data_json=?, chart_audit_json=?,
+            consensus_json=?, comparison_json=?, template=?, notes_markdown=?, claims_json=?, clean_report_json=?,
+            log_json=?, error=?, replayed_from=?, completed_at=?
          WHERE id=?",
     )
     .bind(&r.status)
     .bind(r.attempt)
     .bind(r.plan.as_ref().map(serde_json::to_string).transpose()?)
+    .bind(r.definition.as_ref().map(serde_json::to_string).transpose()?)
     .bind(&r.code)
     .bind(&r.stdout)
     .bind(&r.stderr)
@@ -94,6 +101,10 @@ pub async fn save_run(db: &SqlitePool, r: &Run) -> Result<()> {
     .bind(&r.isolation)
     .bind(r.oom_killed as i64)
     .bind(serde_json::to_string(&r.metrics)?)
+    .bind(r.chart_data.as_ref().map(serde_json::to_string).transpose()?)
+    .bind(r.chart_audit.as_ref().map(serde_json::to_string).transpose()?)
+    .bind(r.consensus.as_ref().map(serde_json::to_string).transpose()?)
+    .bind(r.comparison.as_ref().map(serde_json::to_string).transpose()?)
     .bind(&r.template)
     .bind(&r.notes_markdown)
     .bind(serde_json::to_string(&r.claims)?)
@@ -151,6 +162,9 @@ fn row_to_run(r: sqlx::sqlite::SqliteRow) -> Run {
         plan: r
             .get::<Option<String>, _>("plan_json")
             .and_then(|s| serde_json::from_str(&s).ok()),
+        definition: r
+            .get::<Option<String>, _>("definition_json")
+            .and_then(|s| serde_json::from_str(&s).ok()),
         code: r.get("code"),
         stdout: r.get("stdout"),
         stderr: r.get("stderr"),
@@ -163,6 +177,18 @@ fn row_to_run(r: sqlx::sqlite::SqliteRow) -> Run {
             .get::<Option<String>, _>("metrics_json")
             .and_then(|s| serde_json::from_str(&s).ok())
             .unwrap_or_default(),
+        chart_data: r
+            .get::<Option<String>, _>("chart_data_json")
+            .and_then(|s| serde_json::from_str(&s).ok()),
+        chart_audit: r
+            .get::<Option<String>, _>("chart_audit_json")
+            .and_then(|s| serde_json::from_str(&s).ok()),
+        consensus: r
+            .get::<Option<String>, _>("consensus_json")
+            .and_then(|s| serde_json::from_str(&s).ok()),
+        comparison: r
+            .get::<Option<String>, _>("comparison_json")
+            .and_then(|s| serde_json::from_str(&s).ok()),
         template: r.get("template"),
         notes_markdown: r.get("notes_markdown"),
         claims: r

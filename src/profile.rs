@@ -286,6 +286,11 @@ fn profile_column(name: &str, raw: &[&str], total_rows: usize) -> ColumnProfile 
         }
     }
     let dirty_values = dirty.len() as i64;
+    let mut date_formats_sorted: Vec<String> = date_formats
+        .iter()
+        .map(|s| s.to_string())
+        .collect();
+    date_formats_sorted.sort_by_key(|s| date_format_rank(s));
 
     let mut issues: Vec<String> = Vec::new();
     if nulls > 0 {
@@ -349,6 +354,7 @@ fn profile_column(name: &str, raw: &[&str], total_rows: usize) -> ColumnProfile 
         unique: unique.len() as i64,
         sample,
         values,
+        date_formats: date_formats_sorted,
         dirty_values,
         issues,
     }
@@ -377,6 +383,24 @@ fn classify_column_issue(msg: &str) -> (&'static str, &'static str, String) {
         ("error", "empty_column", "Column is entirely empty and will be dropped.".into())
     } else {
         ("info", "note", msg.to_string())
+    }
+}
+
+fn date_format_rank(s: &str) -> usize {
+    match s {
+        "YYYY-MM-DD" => 0,
+        "YYYY/MM/DD" => 1,
+        "ISO datetime" => 2,
+        "Mon DD, YYYY" => 3,
+        "Month DD, YYYY" => 4,
+        "MM/DD/YYYY" => 5,
+        "DD-MM-YYYY" => 6,
+        "MM-DD-YYYY" => 7,
+        "DD/MM/YYYY" => 8,
+        "YYYY-MM-DD HH:MM:SS" => 9,
+        "MM/DD/YY" => 10,
+        "DD/MM/YY" => 11,
+        _ => 20,
     }
 }
 

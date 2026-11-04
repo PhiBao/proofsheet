@@ -14,6 +14,7 @@ pub struct AppState {
     pub started_at: Instant,
     pub hostname: String,
     pub canary_path: std::path::PathBuf,
+    pub run_slots: Arc<tokio::sync::Semaphore>,
 }
 
 impl AppState {

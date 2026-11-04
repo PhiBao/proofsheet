@@ -2043,3 +2043,323 @@ button {
     margin-top: 40px;
   }
 }
+
+/* ---------------- definition lock ---------------- */
+
+.definition {
+  border: 1px solid var(--ink);
+  background: var(--paper-hi);
+  padding: 20px;
+  margin-top: 4px;
+}
+
+.definition-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.definition-title {
+  margin-top: 5px;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.definition-sub {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 58ch;
+}
+
+.definition-plan {
+  border-left: 1px solid var(--rule);
+  padding-left: 20px;
+}
+
+.definition-plan-title {
+  margin-top: 3px;
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.definition-summary {
+  margin: 16px 0;
+  padding: 11px 14px;
+  border-left: 3px solid var(--green);
+  background: var(--paper);
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.assumptions {
+  border-top: 1px solid var(--ink);
+}
+
+.assumption {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(180px, 0.7fr);
+  gap: 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: center;
+}
+
+.assumption-label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.assumption-key {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.assumption-why {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.assumption-control {
+  justify-self: end;
+  width: 100%;
+  max-width: 280px;
+}
+
+.select,
+.input {
+  width: 100%;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  padding: 7px 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  border-radius: 0;
+  outline: none;
+}
+
+.select:focus,
+.input:focus {
+  border-color: var(--green);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--green);
+}
+
+.definition-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+}
+
+.definition-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ---------------- trust badges ---------------- */
+
+.trust-row {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.trust {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--rule-strong);
+  padding: 4px 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.trust.good {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.trust.bad {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.trust.warn {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.stamp.warn {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(242, 232, 210, 0.55);
+}
+
+/* ---------------- comparison / consensus / audits ---------------- */
+
+.comparison {
+  border: 1px solid var(--ink);
+  background: var(--paper-hi);
+  padding: 16px 18px;
+  margin-top: 18px;
+}
+
+.comparison-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.comparison h4 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 21px;
+}
+
+.delta-pos {
+  color: var(--green);
+  font-weight: 500;
+}
+
+.delta-neg {
+  color: var(--red);
+  font-weight: 500;
+}
+
+.delta-flat {
+  color: var(--muted);
+}
+
+.panel-good {
+  border-left: 3px solid var(--green);
+  background: var(--green-bg);
+  padding: 14px 16px;
+}
+
+.panel-bad {
+  border-left: 3px solid var(--red);
+  background: var(--red-bg);
+  padding: 14px 16px;
+}
+
+.panel-warn {
+  border-left: 3px solid var(--amber);
+  background: var(--amber-bg);
+  padding: 14px 16px;
+}
+
+.panel-title-2 {
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1.15;
+}
+
+.checks {
+  margin-top: 10px;
+  border-top: 1px solid var(--rule);
+}
+
+.check-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 12.5px;
+}
+
+.check-mark {
+  font-family: var(--mono);
+  color: var(--green);
+}
+
+.check-mark.fail {
+  color: var(--red);
+}
+
+.check-detail {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  text-align: right;
+}
+
+.tamper {
+  border: 1px solid var(--red);
+  background: var(--red-bg);
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+
+.tamper .prose {
+  font-size: 17px;
+}
+
+.tamper .claim {
+  opacity: 0.75;
+}
+
+.integrity {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--faint);
+  word-break: break-all;
+}
+
+@media (max-width: 720px) {
+  .definition-head {
+    grid-template-columns: 1fr;
+  }
+  .definition-plan {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+    padding-left: 0;
+    padding-top: 12px;
+  }
+  .assumption {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .assumption-control {
+    justify-self: stretch;
+    max-width: none;
+  }
+}

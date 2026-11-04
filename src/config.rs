@@ -11,6 +11,8 @@ pub struct Config {
     pub model_plan: String,
     pub model_code: String,
     pub model_repair: String,
+    pub model_checker: String,
+    pub consensus_enabled: bool,
     pub sandbox_backend: String,
     pub sandbox_image: String,
     pub sandbox_timeout_secs: u64,
@@ -46,6 +48,11 @@ impl Config {
                 .unwrap_or_else(|_| "qwen3.8-27b".into()),
             model_repair: std::env::var("PROOFSHEET_MODEL_REPAIR")
                 .unwrap_or_else(|_| "deepseek-v4.1-flash-1017".into()),
+            model_checker: std::env::var("PROOFSHEET_MODEL_CHECKER")
+                .unwrap_or_else(|_| "deepseek-v4.1-flash-1017".into()),
+            consensus_enabled: std::env::var("PROOFSHEET_CONSENSUS")
+                .map(|v| !matches!(v.as_str(), "0" | "false" | "off"))
+                .unwrap_or(true),
             sandbox_backend: std::env::var("PROOFSHEET_SANDBOX").unwrap_or_else(|_| "auto".into()),
             sandbox_image: std::env::var("PROOFSHEET_SANDBOX_IMAGE")
                 .unwrap_or_else(|_| "proofsheet-sandbox:latest".into()),
