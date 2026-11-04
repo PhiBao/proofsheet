@@ -358,7 +358,7 @@ Dockerfile.sandbox   python + pandas + matplotlib execution image
    date-format precedence explicit.
 4. **0:50** Run. Watch the plan, code, primary sandbox, claim audit, chart audit, and the
    second independent sandbox.
-5. **1:25** The report: 522 → 506 rows, 16 duplicates, 9 columns repaired, a real chart,
+5. **1:25** The report: 522 → 492 rows, 16 duplicates, 9 columns repaired, 333 rows used for metrics, a real chart,
    **two executions agree**, every claim receipted. Click a receipt: code, stdout,
    isolation and sandbox id. Download the assurance bundle.
 6. **1:55** **Try to make it lie** injects a fake claim; the verifier flags it and the
