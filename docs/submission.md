@@ -59,6 +59,12 @@ Demo video: https://youtu.be/bdNI-FLgZxI
 
 *(863 characters.)*
 
+Short version, if the field is capped at ~500 characters (390 characters):
+
+```
+Track: Blast Radius Zero — Pattern A. Rust + Vultr Serverless Inference + gVisor on a Vultr Cloud Compute VM. No login. Verify in two minutes: report (6/6 claims receipted, 0 unverified, 5/5 independent agreement), adversarial check, containment drill (6/6, host canary intact), deterministic replay (+3.0%). Source: https://github.com/PhiBao/proofsheet — demo: https://youtu.be/bdNI-FLgZxI
+```
+
 ## Assets
 
 | Asset | File |
