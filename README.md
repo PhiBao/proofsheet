@@ -12,7 +12,8 @@
 | | |
 |---|---|
 | **Live demo** | **http://149.28.225.246** |
-| **Demo video (2:09, narrated)** | [docs/demo.mp4](docs/demo.mp4) |
+| **Demo video (2:09, YouTube)** | **https://youtu.be/bdNI-FLgZxI** |
+| **Demo video file** | [docs/demo.mp4](docs/demo.mp4) |
 | **Slide deck (10 pages, PDF)** | [docs/proofsheet-deck.pdf](docs/proofsheet-deck.pdf) |
 | **Slide presentation video (3:13)** | [docs/slide-presentation.mp4](docs/slide-presentation.mp4) |
 | **Cover image (16:9)** | [docs/cover.png](docs/cover.png) |

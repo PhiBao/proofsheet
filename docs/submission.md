@@ -4,6 +4,10 @@
 
 **Proofsheet — the analyst that shows its work** *(44 characters)*
 
+## Demo video link
+
+https://youtu.be/bdNI-FLgZxI
+
 ## Short description
 
 **Drop a messy CSV. Proofsheet locks the business definition, executes the analysis in a disposable sandbox on Vultr, and returns a report where every number and every name carries a receipt.** *(189 characters)*
@@ -36,6 +40,25 @@ Agentic AI · AI Agents · Data Analysis · Sandboxing · gVisor · Rust · Vult
 
 **Blast Radius Zero — Pattern A: sandboxed code execution.**
 
+## Additional information
+
+```
+Track: Blast Radius Zero — Pattern A (sandboxed code execution).
+
+Built with Rust (Axum, Tokio, SQLx), Vultr Serverless Inference, gVisor and React/TypeScript, deployed on a Vultr Cloud Compute VM in EWR.
+
+Judges can verify the claims in about two minutes:
+• Verified report — definition lock, chart, 6/6 receipted claims, 0 unverified, 5/5 independent agreement: http://149.28.225.246/r/7263a5f0-e0be-47e1-9f6c-f29e23d3ffd8
+• Try to make it lie — inject a fake claim; the verifier withholds the stamp: same report, "Run adversarial check"
+• Containment drill — 6/6 steps, host canary intact: http://149.28.225.246/drill
+• Deterministic replay — 506 → 506 rows, +3.0% net revenue, no model calls: http://149.28.225.246/r/e45ea4dc-feea-476c-b854-fe1ea1e955a5
+
+No login required. Source: https://github.com/PhiBao/proofsheet
+Demo video: https://youtu.be/bdNI-FLgZxI
+```
+
+*(863 characters.)*
+
 ## Assets
 
 | Asset | File |
@@ -43,7 +66,8 @@ Agentic AI · AI Agents · Data Analysis · Sandboxing · gVisor · Rust · Vult
 | 16:9 cover image | `docs/cover.png` |
 | Slide deck (PDF, 10 pages) | `docs/proofsheet-deck.pdf` |
 | Slide presentation video (3:13) | `docs/slide-presentation.mp4` |
-| Product demo video (2:09) | `docs/demo.mp4` |
+| Product demo video (2:09) | https://youtu.be/bdNI-FLgZxI |
+| Product demo upload file | `docs/demo.mp4` |
 | Product demo subtitles | `docs/demo.srt` |
 | Slide video subtitles | `docs/slide-presentation.srt` |
 | Live demo | http://149.28.225.246 |
@@ -54,6 +78,6 @@ Agentic AI · AI Agents · Data Analysis · Sandboxing · gVisor · Rust · Vult
 1. Cover image: `docs/cover.png`
 2. Slide presentation: `docs/proofsheet-deck.pdf`
 3. Video presentation: `docs/slide-presentation.mp4`
-4. Demo video: `docs/demo.mp4`
+4. Demo video: paste https://youtu.be/bdNI-FLgZxI (upload `docs/demo.mp4` only if the form requires a file).
 5. Paste the title, short description, and long description above.
-6. Add the tags and choose **Blast Radius Zero / Pattern A**.
+6. Add the tags, choose **Blast Radius Zero / Pattern A**, and paste the additional information above.
