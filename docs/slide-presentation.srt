@@ -1,0 +1,181 @@
+1
+00:00:00,100 --> 00:00:03,604
+Proofsheet is an analyst that shows its work.
+
+2
+00:00:03,554 --> 00:00:11,587
+You drop a messy export, approve the business definition, and get a
+report where every number and every name carries a receipt.
+
+3
+00:00:12,189 --> 00:00:15,667
+A normal AI data tool can make a chart.
+
+4
+00:00:15,618 --> 00:00:23,573
+It cannot tell you which definition it used, which rows it dropped, or
+whether the number is the one your finance team would defend.
+
+5
+00:00:23,573 --> 00:00:29,367
+Cleaning still takes most of the time, and one wrong figure is enough
+to lose the room.
+
+6
+00:00:29,990 --> 00:00:32,582
+The product has four moves.
+
+7
+00:00:32,533 --> 00:00:35,149
+Profile the file in Rust.
+
+8
+00:00:35,149 --> 00:00:37,923
+Lock the definition with the user.
+
+9
+00:00:37,923 --> 00:00:41,243
+Execute in a disposable sandbox.
+
+10
+00:00:41,243 --> 00:00:43,210
+Prove the result.
+
+11
+00:00:43,210 --> 00:00:47,766
+The model can plan and write code, but it never authors a number.
+
+12
+00:00:48,390 --> 00:00:52,141
+The definition lock fixes the right-answer problem.
+
+13
+00:00:52,091 --> 00:00:54,084
+Shipping is out.
+
+14
+00:00:54,084 --> 00:00:57,195
+Cancelled and refunded orders are out.
+
+15
+00:00:57,195 --> 00:00:59,903
+Missing values are excluded.
+
+16
+00:00:59,903 --> 00:01:02,820
+Discounts are read as fractions.
+
+17
+00:01:02,820 --> 00:01:07,287
+Ambiguous dates follow one explicit format precedence.
+
+18
+00:01:07,287 --> 00:01:10,685
+The model cannot change these after approval.
+
+19
+00:01:11,299 --> 00:01:14,088
+Containment is part of the product.
+
+20
+00:01:14,037 --> 00:01:21,408
+Every task gets a fresh sandbox with no network, no secrets, a
+read-only root, and hard caps.
+
+21
+00:01:21,408 --> 00:01:30,197
+The drill runs a real destructive command, a fork storm, a runaway
+loop, a credential scan, a network probe, and a host probe.
+
+22
+00:01:30,197 --> 00:01:33,972
+The host canary is intact after all six.
+
+23
+00:01:34,569 --> 00:01:38,073
+The report note can only cite placeholders.
+
+24
+00:01:38,024 --> 00:01:44,390
+Rust resolves them from the execution ledger and audits the chart
+series against the same numbers.
+
+25
+00:01:44,390 --> 00:01:46,864
+Six claims are receipted.
+
+26
+00:01:46,864 --> 00:01:49,299
+Zero unverified.
+
+27
+00:01:49,299 --> 00:01:52,372
+The chart audit passes eight checks.
+
+28
+00:01:53,000 --> 00:02:00,072
+A second model, which never sees the analyst script, recomputes the
+metrics in a separate sandbox.
+
+29
+00:02:00,022 --> 00:02:06,051
+Both import the same parsing contract, so the check is about
+aggregation and logic.
+
+30
+00:02:06,051 --> 00:02:12,756
+It caught two real ambiguities in our own analysis: discount semantics
+and date precedence.
+
+31
+00:02:12,756 --> 00:02:15,516
+Both became locked assumptions.
+
+32
+00:02:16,129 --> 00:02:18,891
+You can also try to make it lie.
+
+33
+00:02:18,842 --> 00:02:25,117
+Inject a fake forty-seven percent and an unknown metric, and the
+verifier flags both.
+
+34
+00:02:25,117 --> 00:02:27,358
+The stamp is withheld.
+
+35
+00:02:27,358 --> 00:02:30,312
+The production report is untouched.
+
+36
+00:02:30,312 --> 00:02:33,751
+The challenge is a live check on the same ledger.
+
+37
+00:02:34,359 --> 00:02:37,030
+The second month is one click.
+
+38
+00:02:36,980 --> 00:02:43,347
+The saved definition, script and template replay on a new export with
+no model in the loop.
+
+39
+00:02:43,347 --> 00:02:51,537
+The comparison is computed in Rust: same rows, net revenue up three
+percent, peak month and top country updated.
+
+40
+00:02:52,139 --> 00:03:03,872
+Proofsheet is real today: definition lock, sandboxed execution, chart
+audit, independent execution, containment drill, assurance bundle, and
+
+41
+00:03:03,822 --> 00:03:09,070
+Next is authentication, scheduling, and one microVM per task.
+
+42
+00:03:09,070 --> 00:03:12,742
+The live app and repository are in the submission.
+

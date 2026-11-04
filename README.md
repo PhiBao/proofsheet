@@ -12,9 +12,12 @@
 | | |
 |---|---|
 | **Live demo** | **http://149.28.225.246** |
-| **Demo video (earlier build, 98s)** | [docs/demo.mp4](docs/demo.mp4) |
-| **Example report** | http://149.28.225.246/r/1ce45831-f316-4728-82c0-e7755f363db7 |
-| **Deterministic replay** | http://149.28.225.246/r/000fd16c-35f3-4f3a-a6e5-6eb7a92954d1 |
+| **Demo video (2:09, narrated)** | [docs/demo.mp4](docs/demo.mp4) |
+| **Slide deck (10 pages, PDF)** | [docs/proofsheet-deck.pdf](docs/proofsheet-deck.pdf) |
+| **Slide presentation video (3:13)** | [docs/slide-presentation.mp4](docs/slide-presentation.mp4) |
+| **Cover image (16:9)** | [docs/cover.png](docs/cover.png) |
+| **Example report** | http://149.28.225.246/r/7263a5f0-e0be-47e1-9f6c-f29e23d3ffd8 |
+| **Deterministic replay** | http://149.28.225.246/r/e45ea4dc-feea-476c-b854-fe1ea1e955a5 |
 | **Containment drill** | http://149.28.225.246/drill |
 | **Architecture page** | http://149.28.225.246/how |
 | **Source** | https://github.com/PhiBao/proofsheet |
@@ -358,7 +361,7 @@ Dockerfile.sandbox   python + pandas + matplotlib execution image
    date-format precedence explicit.
 4. **0:50** Run. Watch the plan, code, primary sandbox, claim audit, chart audit, and the
    second independent sandbox.
-5. **1:25** The report: 522 → 492 rows, 16 duplicates, 9 columns repaired, 333 rows used for metrics, a real chart,
+5. **1:25** The report: 522 → 506 rows, 16 duplicates, 9 columns repaired, 333 rows used for metrics, a real chart,
    **two executions agree**, every claim receipted. Click a receipt: code, stdout,
    isolation and sandbox id. Download the assurance bundle.
 6. **1:55** **Try to make it lie** injects a fake claim; the verifier flags it and the

@@ -1,0 +1,108 @@
+1
+00:00:00,100 --> 00:00:03,512
+Every AI data tool can make a chart.
+
+2
+00:00:03,463 --> 00:00:06,275
+Almost none can defend the number.
+
+3
+00:00:06,889 --> 00:00:12,347
+The analyst still cleans the export and hopes the model did not invent
+a figure.
+
+4
+00:00:12,297 --> 00:00:15,643
+One wrong number is enough to lose the room.
+
+5
+00:00:16,240 --> 00:00:18,911
+Proofsheet starts with the dirt.
+
+6
+00:00:18,861 --> 00:00:26,711
+Before a model sees the file, it maps the duplicates, the mixed dates,
+the currency text, and the missing values.
+
+7
+00:00:27,320 --> 00:00:29,795
+You ask in plain English.
+
+8
+00:00:29,745 --> 00:00:38,729
+Before any code runs, you approve the definition: which orders count,
+how missing values are handled, and how discounts and dates are read.
+
+9
+00:00:49,350 --> 00:00:56,994
+The report carries the approved definition, the chart, six receipted
+claims, and zero unverified numbers.
+
+10
+00:00:56,945 --> 00:01:01,150
+A second implementation agrees on all five metrics.
+
+11
+00:01:01,750 --> 00:01:09,355
+Click any number and you get the exact code, the output, the sandbox,
+and the isolation level that produced it.
+
+12
+00:01:09,949 --> 00:01:14,300
+The independent implementation never sees the first script.
+
+13
+00:01:14,250 --> 00:01:20,161
+It runs in its own sandbox, with the same definition and the same
+parsing contract.
+
+14
+00:01:20,161 --> 00:01:22,570
+Five out of five agree.
+
+15
+00:01:23,189 --> 00:01:25,612
+You can try to make it lie.
+
+16
+00:01:25,562 --> 00:01:29,182
+Inject a fake claim and the stamp disappears.
+
+17
+00:01:29,182 --> 00:01:31,917
+The real report is untouched.
+
+18
+00:01:34,819 --> 00:01:39,925
+Every task runs in a fresh sandbox with no network and no secrets.
+
+19
+00:01:39,875 --> 00:01:45,383
+The drill absorbs a destructive command, a fork storm, and a
+credential scan.
+
+20
+00:01:45,383 --> 00:01:48,039
+The host canary survives.
+
+21
+00:01:48,659 --> 00:01:53,504
+Next month, the saved pipeline replays with no model in the loop.
+
+22
+00:01:53,454 --> 00:01:59,236
+Same rows, revenue up three percent, and the change is computed from
+two ledgers.
+
+23
+00:01:59,839 --> 00:02:03,265
+Audit-ready reporting for the Monday export.
+
+24
+00:02:03,215 --> 00:02:04,947
+Proofsheet.
+
+25
+00:02:04,947 --> 00:02:08,619
+The live app and repository are in the submission.
+
