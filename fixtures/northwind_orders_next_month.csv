@@ -1,0 +1,173 @@
+order_id,order_date,customer_name,email,country,product,quantity,unit_price,discount,status,shipping_cost
+NW-21041,12-04-2025,Owen Kowalski,owen.kowalski@example.com,United States,Linen Apron,5,42.00,0.00,shipped,0.00
+NW-21148,10-02-2025,Jonas Silva  ,jonas.silva@example.com,netherlands,Copper Kettle,2,$93,,shipped,12.00
+NW-21028,2025-12-15,Owen Kowalski,owen.kowalski@example.com,Canada,Copper Kettle,4,$93,15%,completed,0.00
+NW-21078,2025/12/18,Jonas Nakamura,jonas.nakamura@example.com,United States.,Oak Stool,1,$164,0%,completed,$12.00
+NW-21101,2025-07-03,Noor Kowalski,noor.kowalski@example.com,United States,Aurora Desk Lamp,2,$93,0.05,completed,$4.95
+NW-21001,2025-09-11,Jonas Kowalski,jonas.kowalski@acme.co,UNITED STATES,Oak Stool,1,156.00,,shipped,4.95
+NW-21045,05/16/2025,Elena Lindqvist,elena.lindqvist@acme.co,United States ,Linen Apron,1,$42,0.05,shipped,$0.00
+NW-21041,12-04-2025,Owen Kowalski,owen.kowalski@example.com,United States,Linen Apron,5,42.00,0.00,shipped,0.00
+NW-21137,2025/06/09,Theo Fischer,theo.fischer@example.com,United Kingdom.,Canvas Tote,1,$30,10%,cancelled,4.95
+NW-21033,2025/06/24,Sofia Duarte,sofia.duarte@example.com,United States,Trail Backpack,3,$135.45,,completed,
+NW-21054,2025-04-08,Maya Lindqvist,maya.lindqvist@mail.test,united states,Aurora Desk Lamp,3,$89.00,0.15,completed,0.00
+NW-21140,"Jan 31, 2025",Hugo Haddad,hugo.haddad@example.com,France,Oak Stool,1x,$156.00,0.10,shipped,12.00
+NW-21132,04-10-2025,Noor Fischer,noor.fischer@example.com,CANADA,Canvas Tote,1,$33.60,0%,completed,0.00
+NW-21008,2025/04/11,Noor Bennett,noor.bennett@acme.co,Canada,Aurora Desk Lamp,4,84.55,,completed,
+NW-21025,08/02/2025,Jonas Duarte,jonas.duarte@mail.test,United States,Copper Kettle,3,$93.10,,completed,
+NW-21029,04/25/2025,Hugo Bennett,hugo.bennett@acme.co,United States,Trail Backpack,2,129.00,,REFUNDED,0.00
+NW-21044,2025-04-08,Owen Silva,owen.silva@mail.test,France,Field Notebook,1,13.77,,refunded,$4.95
+NW-21119,2025/01/22,Hugo Okafor,hugo.okafor@example.com,United States,Field Notebook,5,$15.23,0.10,refunded,0.00
+NW-21069,2025-10-03,Sofia Nakamura,sofia.nakamura@example.com,United States,Field Notebook,1x,14.50,0%,completed,$0.00
+NW-21167,2025/03/26,Noor Kowalski,noor.kowalski@mail.test,Canada,Oak Stool,4,$156.00,0.05,refunded,0.00
+NW-21026,19-08-2025,Miles Kowalski,miles.kowalski@mail.test,UNITED STATES,Oak Stool,1,$156,,refunded,$7.50
+NW-21003,2025/01/30,Noor Lindqvist,noor.lindqvist@example.com,United Kingdom,Aurora Desk Lamp,1,$85,0.15,shipped,7.50
+NW-21121,2025/09/08,Owen Bennett,owen.bennett@acme.co,United States,Wool Throw,1,$74.00,0%,cancelled,
+NW-21145,"Dec 24, 2025",Hugo Silva,hugo.silva@acme.co,United States,Wool Throw,5,$77.70,15%,Cancelled,
+NW-21123,2025-09-15,Maya Fischer,maya.fischer@mail.test,United States,Aurora Desk Lamp,4,$93.45,0.10,cancelled,$0.00
+NW-21152,09-07-2025,Hugo Haddad,hugo.haddad@acme.co,Australia ,Copper Kettle,1,98.00,0.00,completed,0.00
+NW-21156,"Dec 4, 2025",Elena Haddad,elena.haddad@acme.co,united states,Oak Stool,1,$148.20,0%,completed,
+NW-21087,30-08-2025,Iris Nakamura,iris.nakamura@mail.test,United States,Oak Stool,1,156.00,0%,SHIPPED,4.95
+NW-21000,"Aug 13, 2025",Theo Fischer,theo.fischer@acme.co,FRANCE,Oak Stool,1,$156.00,0%,completed,
+NW-21118,2025-03-19,Noor Haddad,noor.haddad@example.com,United Kingdom,Aurora Desk Lamp,3,$93,0.05,completed,$12.00
+NW-21113,11-09-2025,Ada Moreau,ada.moreau@mail.test,united states,Canvas Tote,1,$30.40,0.05,shipped,4.95
+NW-21031,2025/05/29,Iris Lindqvist, IRIS.LINDQVIST@ACME.CO ,united states,Linen Apron,1,$44.10,,completed,4.95
+NW-21012,08/23/2025,Miles Duarte,miles.duarte@acme.co,germany,Wool Throw,4,$74.00,0.10,shipped,4.95
+NW-21085,2025-03-20,Theo Fischer,theo.fischer@example.com,United States ,Linen Apron,4,$44,,cancelled,4.95
+NW-21053,05/10/2025,Priya Haddad,priya.haddad@example.com,United States,Canvas Tote,1,$32.00,,shipped,
+NW-21037,2025/08/26,Priya Silva,priya.silva@example.com,United States,Ceramic Mug,1,$18.00,10%,shipped,$4.95
+NW-21141,23-10-2025,Noor Lindqvist, NOOR.LINDQVIST@MAIL.TEST ,United States,Canvas Tote,1,$33.60,15%,cancelled,12.00
+NW-21158,"Jan 15, 2025",Hugo Lindqvist,hugo.lindqvist@mail.test,AUSTRALIA,Aurora Desk Lamp,2,$93.45,15%,completed,
+NW-21060,2025-08-16,Iris Lindqvist,iris.lindqvist@mail.test,Netherlands,Copper Kettle,2,$103,15%,completed,$0.00
+NW-21114,2025/04/09,Owen Lindqvist,owen.lindqvist@mail.test,Canada,Oak Stool,1,$156.00,,cancelled,$12.00
+NW-21030,2025-09-12,Miles Haddad,miles.haddad@acme.co,United States,Wool Throw,5,$74.00,0.00,cancelled,$0.00
+NW-21061,04/07/2025,Maya Fischer,maya.fischer@acme.co,United States,Copper Kettle,1,$98,,shipped,$0.00
+NW-21047,"Apr 17, 2025",Theo Bennett,theo.bennett@mail.test,United States ,Aurora Desk Lamp,2,$89.00,,completed,$4.95
+NW-21032,"Jun 3, 2025",Hugo Kowalski, HUGO.KOWALSKI@EXAMPLE.COM ,canada,Linen Apron,1,$42.00,0%,shipped,$7.50
+NW-21024,03/02/2025,Ada Haddad,ada.haddad@example.com,Netherlands.,Canvas Tote,2,$32.00,10%,completed,$4.95
+NW-21166,2025-07-31,Iris Duarte,iris.duarte@acme.co,Canada,Oak Stool,5,$148.20,0.00,completed,$12.00
+NW-21062,2025-05-24,Noor Kowalski,noor.kowalski@acme.co,Canada,Aurora Desk Lamp,2,89.00,15%,completed,$12.00
+NW-21127,"Oct 17, 2025",Owen Moreau,owen.moreau@mail.test,Germany,Copper Kettle,1,98.00,0%,shipped,0.00
+NW-21005,"Dec 18, 2025",Ada Kowalski,ada.kowalski@example.com,United Kingdom,Ceramic Mug,2,$18.00,10%,refunded,0.00
+NW-21150,2025/07/24,Jonas Kowalski, JONAS.KOWALSKI@ACME.CO ,France ,Canvas Tote,2,$32.00,0.15,completed,7.50
+NW-21120,23-10-2025,Maya Lindqvist,maya.lindqvist@example.com,United States,Copper Kettle,2,$98,,cancelled,7.50
+NW-21093,2025-06-07,Sofia Duarte,sofia.duarte@mail.test,United Kingdom,Canvas Tote,4,32.00,0%,completed,$0.00
+NW-21056,2025-05-22,Priya Silva,priya.silva@example.com,canada,Copper Kettle,1,$98,5%,shipped,0.00
+NW-21059,2025-02-14,Iris Fischer,iris.fischer@acme.co,Germany,Field Notebook,4,13.77,0.05,shipped,$4.95
+NW-21096,2025-08-07,Owen Duarte,owen.duarte@acme.co,Canada,Linen Apron,1,$44.10,0.05,cancelled,12.00
+NW-21135,12/18/2025,Maya Haddad, MAYA.HADDAD@ACME.CO ,United States,Aurora Desk Lamp,1,$89.00,0%,REFUNDED,$12.00
+NW-21153,2025/06/05,Hugo Lindqvist,hugo.lindqvist@mail.test,United States,Aurora Desk Lamp,2,$93.45,,shipped,12.00
+NW-21139,"Jul 10, 2025",Ada Fischer,ada.fischer@example.com,Germany,Aurora Desk Lamp,5,$89.00,0.00,Completed,0.00
+NW-21103,2025/09/07,Maya Haddad,maya.haddad@example.com,Canada,Aurora Desk Lamp,2,$85,0.05,shipped,12.00
+NW-21040,2025/06/17,Priya Nakamura,priya.nakamura@mail.test,Netherlands,Copper Kettle,2,$98.00,,completed,12.00
+NW-21050,10-03-2025,Hugo Nakamura,hugo.nakamura@acme.co,United States ,Trail Backpack,1,129.00,15%,completed,$0.00
+NW-21128,2025/03/10,Hugo Okafor,hugo.okafor@example.com,United States,Canvas Tote,1,$32.00,,refunded,0.00
+NW-21097,08/24/2025,Owen Bennett,owen.bennett@example.com,france,Field Notebook,2,15.23,0.15,cancelled,12.00
+NW-21091,11-06-2025,Theo Kowalski,theo.kowalski@example.com,UNITED STATES,Copper Kettle,2,$98.00,0%,shipped,$0.00
+NW-21144,2025/05/11,Jonas Kowalski, JONAS.KOWALSKI@MAIL.TEST ,France,Aurora Desk Lamp,4,$93.45,10%,cancelled,$0.00
+NW-21159,2025-12-15,Elena Fischer,elena.fischer@mail.test,United States,Linen Apron,3,$42.00,,shipped,7.50
+NW-21014,24-11-2025,Priya Haddad, PRIYA.HADDAD@MAIL.TEST ,Australia,Ceramic Mug,5,18.00,0%,COMPLETED,$0.00
+NW-21076,2025/10/26,Theo Lindqvist,theo.lindqvist@mail.test,United States,Linen Apron,5,$42.00,0%,refunded,
+NW-21055,04/05/2025,Theo Duarte,theo.duarte@example.com,France,Oak Stool,5,$156.00,,cancelled,7.50
+NW-21160,2025/06/22,Maya Fischer,maya.fischer@example.com,united states,Field Notebook,4,14.50,10%,refunded,$0.00
+NW-21068,2025-01-29,Hugo Nakamura,hugo.nakamura@acme.co,Germany ,Copper Kettle,5,$98,5%,completed,4.95
+NW-21051,2025/03/16,Elena Kowalski,elena.kowalski@acme.co,United Kingdom,Copper Kettle,2,$102.90,,completed,$4.95
+NW-21063,2025-05-29,Iris Fischer,iris.fischer@mail.test,Germany,Field Notebook,2x,$14,0%,Completed,$4.95
+NW-21019,03/04/2025,Priya Nakamura,priya.nakamura@example.com,Germany,Linen Apron,3,44.10,,completed,0.00
+NW-21057,2025-10-07,Priya Silva,priya.silva@mail.test,United States,Aurora Desk Lamp,1,$89,15%,SHIPPED,$12.00
+NW-21163,2025-06-28,Ada Duarte  ,ada.duarte@example.com,Australia,Cast Iron Pan,4,64.60,0%,cancelled,$0.00
+NW-21000,"Aug 13, 2025",Theo Fischer,theo.fischer@acme.co,FRANCE,Oak Stool,1,$156.00,0%,completed,
+NW-21058,"Mar 17, 2025",Owen Fischer,owen.fischer@mail.test,UNITED STATES,Wool Throw,4,$74.00,,completed,0.00
+NW-21111,02/22/2025,Ada Lindqvist,ada.lindqvist@example.com,united states,Linen Apron,5,$44.10,,shipped,$7.50
+NW-21146,"Nov 25, 2025",Maya Duarte,maya.duarte@example.com,UNITED STATES,Cast Iron Pan,1,$68.00,0.10,shipped,12.00
+NW-21038,"Jul 5, 2025",Maya Bennett, MAYA.BENNETT@ACME.CO ,united states,Aurora Desk Lamp,1,$89.00,,shipped,$0.00
+NW-21011,"Feb 24, 2025",Ada Duarte,ada.duarte@example.com,United States,Oak Stool,2,$156.00,5%,refunded,0.00
+NW-21126,"Feb 3, 2025",Ada Kowalski,ada.kowalski@example.com,Australia,Wool Throw,3,$74.00,,refunded,
+NW-21110,24-07-2025,Jonas Okafor,jonas.okafor@acme.co,United States ,Cast Iron Pan,2,$71.40,,completed,$12.00
+NW-21104,30-12-2025,Theo Kowalski,theo.kowalski@example.com,Germany ,Wool Throw,1,$74.00,,Completed,
+NW-21066,2025/04/02,Theo Okafor,theo.okafor@acme.co,Canada,Canvas Tote,1,32.00,0.05,refunded,$12.00
+NW-21099,12-09-2025,Ada Moreau,ada.moreau@mail.test,Netherlands,Copper Kettle,1,$103,,completed,$0.00
+NW-21043,2025-07-18,Ada Nakamura  ,ada.nakamura@example.com,united states,Linen Apron,2,42.00,0.00,Completed,$4.95
+NW-21083,03/21/2025,Owen Bennett,owen.bennett@acme.co,Canada,Aurora Desk Lamp,2,$84.55,0%,shipped,12.00
+NW-21020,2025-06-18,Hugo Silva,hugo.silva@mail.test,United States,Trail Backpack,4,$129,0.05,completed,$7.50
+NW-21034,"Apr 23, 2025",Ada Okafor,ada.okafor@example.com,United States,Trail Backpack,1,$122.55,,shipped,0.00
+NW-21016,2025/01/18,Priya Okafor,priya.okafor@acme.co,United States,Copper Kettle,1,$98,0.00,completed,$7.50
+NW-21088,06/07/2025,Noor Lindqvist,noor.lindqvist@example.com,France ,Wool Throw,4x,$74,,completed,
+NW-21081,15-04-2025,Owen Bennett,owen.bennett@acme.co,UNITED STATES,Oak Stool,1,$156.00,5%,completed,$0.00
+NW-21015,2025/10/13,Maya Nakamura, MAYA.NAKAMURA@EXAMPLE.COM ,Netherlands,Linen Apron,4,$44.10,15%,shipped,$0.00
+NW-21123,2025-09-15,Maya Fischer,maya.fischer@mail.test,United States,Aurora Desk Lamp,4,$93.45,0.10,cancelled,$0.00
+NW-21092,09/24/2025,Iris Moreau,iris.moreau@mail.test,UNITED STATES,Canvas Tote,4,$32,0.00,refunded,$4.95
+NW-21157,"Oct 11, 2025",Sofia Moreau,sofia.moreau@example.com,Canada,Copper Kettle,4,98.00,0%,cancelled,$4.95
+NW-21067,03/08/2025,Sofia Okafor,sofia.okafor@acme.co,United States,Cast Iron Pan,2,$68.00,,COMPLETED,$7.50
+NW-21007,02/18/2025,Iris Duarte  , IRIS.DUARTE@EXAMPLE.COM ,United States,Ceramic Mug,1,$18,10%,shipped,$0.00
+NW-21074,28-12-2025,Miles Lindqvist,miles.lindqvist@acme.co,australia,Linen Apron,1,$42.00,,Cancelled,$0.00
+NW-21115,09/09/2025,Hugo Moreau,hugo.moreau@acme.co,United States,Field Notebook,2,$15.23,0.15,completed,12.00
+NW-21077,04/01/2025,Ada Haddad,ada.haddad@mail.test,united states,Wool Throw,4,77.70,,Completed,$0.00
+NW-21131,2025/12/24,Theo Okafor,theo.okafor@example.com,Germany,Copper Kettle,2,$102.90,,cancelled,$4.95
+NW-21079,2025/03/10,Theo Moreau,theo.moreau@acme.co,united states,Field Notebook,1,14.50,15%,shipped,7.50
+NW-21082,2025/10/09,Priya Nakamura,priya.nakamura@acme.co,germany,Cast Iron Pan,1,$68.00,0%,COMPLETED,$0.00
+NW-21105,09/05/2025,Hugo Bennett,hugo.bennett@acme.co,canada,Ceramic Mug,3,$18.00,,cancelled,0.00
+NW-21149,"Jan 2, 2025",Priya Haddad,priya.haddad@example.com,United States,Wool Throw,1,70.30,0%,completed,4.95
+NW-21006,13-03-2025,Miles Lindqvist,miles.lindqvist@example.com,United States,Canvas Tote,1,$32.00,0.00,Cancelled,$12.00
+NW-21089,2025-09-17,Elena Nakamura,elena.nakamura@mail.test,France,Trail Backpack,3,$123,0%,cancelled,12.00
+NW-21154,2025/03/12,Theo Moreau,theo.moreau@example.com,united states,Oak Stool,1,$156.00,0%,completed,$7.50
+NW-21046,2025-01-26,Owen Lindqvist,owen.lindqvist@acme.co,United States,Aurora Desk Lamp,1,$93.45,0.00,refunded,0.00
+NW-21017,2025/03/12,Hugo Duarte,hugo.duarte@example.com,United States,Aurora Desk Lamp,4,$89,0%,completed,0.00
+NW-21161,07-04-2025,Hugo Lindqvist,hugo.lindqvist@mail.test,United Kingdom,Oak Stool,1,$148,0.15,completed,
+NW-21013,09-09-2025,Miles Lindqvist,miles.lindqvist@acme.co,United Kingdom,Linen Apron,1,$44,0%,Shipped,12.00
+NW-21086,2025/05/13,Theo Silva,theo.silva@example.com,Netherlands,Aurora Desk Lamp,2,$89.00,0.05,completed,$0.00
+NW-21035,"Aug 28, 2025",Sofia Moreau,sofia.moreau@example.com,United States,Ceramic Mug,2,$17.10,10%,refunded,0.00
+NW-21010,"Apr 28, 2025",Elena Bennett,elena.bennett@example.com,Australia,Wool Throw,2,$70,0.00,completed,$12.00
+NW-21039,2025-07-27,Hugo Haddad,hugo.haddad@mail.test,united states,Aurora Desk Lamp,1,$84.55,,refunded,
+NW-21084,"Sep 28, 2025",Owen Lindqvist,owen.lindqvist@example.com,UNITED KINGDOM,Canvas Tote,4,$32,,cancelled,12.00
+NW-21090,"Apr 14, 2025",Theo Silva,theo.silva@acme.co,Germany,Trail Backpack,1,$135.45,0%,completed,$12.00
+NW-21107,2025-12-19,Sofia Lindqvist,sofia.lindqvist@example.com,United States,Copper Kettle,1,$98.00,10%,refunded,7.50
+NW-21133,"Feb 5, 2025",Sofia Moreau  ,sofia.moreau@example.com,United States,Field Notebook,2,15.23,0%,shipped,$4.95
+NW-21112,06/10/2025,Priya Fischer,priya.fischer@mail.test,UNITED STATES,Ceramic Mug,1,$18.00,15%,cancelled,$4.95
+NW-21095,"Jan 22, 2025",Sofia Moreau,sofia.moreau@acme.co,United States ,Wool Throw,3,$74.00,0.10,shipped,$0.00
+NW-21162,2025/11/26,Miles Silva,miles.silva@example.com,United States,Trail Backpack,2,135.45,,COMPLETED,$12.00
+NW-21165,2025-02-07,Hugo Kowalski,hugo.kowalski@mail.test,netherlands,Trail Backpack,3,129.00,0.00,refunded,$0.00
+NW-21065,20-11-2025,Jonas Bennett,jonas.bennett@mail.test,United States.,Aurora Desk Lamp,2,93.45,,completed,4.95
+NW-21143,2025/10/24,Iris Duarte,iris.duarte@acme.co,United States,Canvas Tote,4,33.60,0.10,cancelled,$0.00
+NW-21129,04-11-2025,Miles Moreau,miles.moreau@example.com,FRANCE,Linen Apron,2,$39.90,0%,shipped,4.95
+NW-21100,2025/08/07,Elena Fischer,elena.fischer@acme.co,UNITED KINGDOM,Canvas Tote,2,$32.00,0%,shipped,
+NW-21122,2025-12-15,Elena Fischer,elena.fischer@mail.test,United States,Linen Apron,3,$42.00,,shipped,7.50
+NW-21094,2025/04/19,Theo Haddad,theo.haddad@acme.co,Germany,Linen Apron,1,$42.00,,refunded,7.50
+NW-21071,2025-09-16,Hugo Fischer,hugo.fischer@acme.co,United States.,Wool Throw,4,$70,,shipped,0.00
+NW-21142,"Aug 22, 2025",Theo Fischer,theo.fischer@acme.co,Canada,Ceramic Mug,5,$18.00,0%,refunded,7.50
+NW-21080,12/21/2025,Priya Fischer,priya.fischer@example.com,United States,Canvas Tote,1,$32.00,0.00,refunded,$4.95
+NW-21082,2025/10/09,Priya Nakamura,priya.nakamura@acme.co,germany,Cast Iron Pan,1,$68.00,0%,COMPLETED,$0.00
+NW-21134,10-06-2025,Ada Moreau,ada.moreau@acme.co,canada,Aurora Desk Lamp,5,89.00,0%,cancelled,$4.95
+NW-21022,2025-06-16,Owen Duarte,owen.duarte@acme.co,germany,Trail Backpack,1,$135,15%,completed,4.95
+NW-21147,06/10/2025,Miles Silva,miles.silva@acme.co,United States,Canvas Tote,1,$32.00,,refunded,$12.00
+NW-21064,2025/09/12,Miles Duarte,miles.duarte@example.com,France,Canvas Tote,3,$30.40,,shipped,$0.00
+NW-21109,08/14/2025,Sofia Silva,sofia.silva@acme.co,netherlands,Copper Kettle,2,$98.00,5%,completed,$0.00
+NW-21049,2025-04-23,Priya Moreau  ,priya.moreau@mail.test,United States.,Cast Iron Pan,1,$71,0.00,shipped,$7.50
+NW-21102,"Jun 14, 2025",Noor Nakamura  , NOOR.NAKAMURA@EXAMPLE.COM ,Australia,Ceramic Mug,2,$19,,completed,$12.00
+NW-21136,2025/07/06,Iris Silva, IRIS.SILVA@EXAMPLE.COM ,United States,Field Notebook,1,$14.50,,refunded,0.00
+NW-21125,16-03-2025,Theo Kowalski  ,theo.kowalski@example.com,Germany,Canvas Tote,1,$33.60,0.10,shipped,$0.00
+NW-21117,2025-10-11,Hugo Bennett,hugo.bennett@example.com,United Kingdom,Canvas Tote,4,32.00,0.10,refunded,0.00
+NW-21072,2025-01-28,Maya Moreau,maya.moreau@mail.test,Canada,Canvas Tote,4,$30.40,0.00,SHIPPED,
+NW-21098,21-05-2025,Priya Bennett,priya.bennett@mail.test,United States,Oak Stool,1,$156.00,0%,completed,$12.00
+NW-21155,18-12-2025,Sofia Haddad,sofia.haddad@acme.co,united states,Field Notebook,3,$15.23,,completed,$4.95
+NW-21042,10/18/2025,Noor Nakamura,noor.nakamura@mail.test,United States,Linen Apron,5,42.00,,shipped,$12.00
+NW-21108,06/03/2025,Iris Moreau,iris.moreau@acme.co,Canada,Field Notebook,2,$13.77,0.05,completed,$0.00
+NW-21021,04-12-2025,Maya Okafor, MAYA.OKAFOR@MAIL.TEST ,United States,Oak Stool,2,148.20,0%,Completed,$7.50
+NW-21052,23-09-2025,Ada Okafor,ada.okafor@acme.co,United States ,Wool Throw,1,$74.00,0.00,completed,
+NW-21130,2025-10-20,Sofia Lindqvist,sofia.lindqvist@example.com,united states,Wool Throw,5,$77.70,,cancelled,0.00
+NW-21027,2025-02-29,Priya Silva,priya.silva@example.com,Netherlands ,Ceramic Mug,5,$19,5%,completed,$4.95
+NW-21023,27-12-2025,Noor Kowalski,noor.kowalski@mail.test,United States,Canvas Tote,3,$32.00,0.05,shipped,$7.50
+NW-21002,2025/11/25,Elena Nakamura,elena.nakamura@mail.test,united states,Oak Stool,1,$156.00,,cancelled,$0.00
+NW-21036,12/09/2025,Noor Duarte,noor.duarte@example.com,UNITED STATES,Wool Throw,2,$74.00,,completed,$0.00
+NW-21164,"Jan 6, 2025",Hugo Bennett,hugo.bennett@acme.co,united states,Wool Throw,5,$70.30,0.05,shipped,4.95
+NW-21009,2025-05-29,Iris Fischer,iris.fischer@mail.test,Germany,Field Notebook,2x,$14,0%,Completed,$4.95
+NW-21018,03/02/2025,Jonas Moreau,jonas.moreau@mail.test,UNITED KINGDOM,Ceramic Mug,1,18.90,,completed,$4.95
+NW-21124,"Dec 23, 2025",Owen Kowalski,owen.kowalski@example.com,Germany,Oak Stool,5,$156.00,5%,completed,
+NW-21151,"May 24, 2025",Hugo Silva,hugo.silva@mail.test,France,Field Notebook,4,$14.50,10%,shipped,$7.50
+NW-21004,"Aug 8, 2025",Miles Okafor,miles.okafor@mail.test,NETHERLANDS,Aurora Desk Lamp,1,$89.00,,completed,4.95
+NW-21048,06/03/2025,Sofia Lindqvist,sofia.lindqvist@acme.co,United States,Wool Throw,1,74.00,,refunded,0.00
+NW-21116,18-11-2025,Miles Kowalski,miles.kowalski@example.com,United States,Wool Throw,3,74.00,,shipped,0.00
+NW-21073,03/18/2025,Ada Haddad,ada.haddad@acme.co,UNITED STATES,Wool Throw,3,$74.00,0.00,shipped,
+NW-21070,2025-02-11,Ada Bennett  ,ada.bennett@example.com,United States,Canvas Tote,1,$32.00,,Completed,$7.50
+NW-21138,12/25/2025,Sofia Duarte,sofia.duarte@acme.co,United States.,Field Notebook,3,$14.50,0.00,shipped,0.00
+NW-21075,11-06-2025,Elena Haddad,elena.haddad@example.com,Germany,Ceramic Mug,2,$18.00,0.05,completed,$12.00
+NW-21106,24-06-2025,Miles Okafor,miles.okafor@mail.test,canada,Field Notebook,2,13.77,,completed,$0.00

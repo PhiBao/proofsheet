@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proofsheet — claim verification</title>
+<style>
+  :root {
+    --paper: #f5f0e4;
+    --paper-hi: #fbf8f0;
+    --ink: #17150f;
+    --muted: #6b6555;
+    --faint: #8e8776;
+    --rule: #d9d1be;
+    --green: #1e6b4c;
+    --serif: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); padding: 56px 64px 48px;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 500; font-size: 46px;
+    letter-spacing: -.025em; line-height: 1.02; margin: 10px 0 8px;
+  }
+  .lede { color: var(--muted); font-size: 16px; max-width: 78ch; margin: 0 0 26px; }
+  .frame { border: 1px solid var(--rule); background: var(--paper-hi); padding: 22px; }
+  svg { display: block; width: 100%; height: auto; }
+  .caption {
+    display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    margin-top: 12px; font-family: var(--mono); font-size: 10px;
+    letter-spacing: .05em; color: var(--faint);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Proofsheet · verification · the wedge</div>
+  <h1>The report cannot invent a number.</h1>
+  <p class="lede">
+    Execution produces a ledger. The model writes prose with placeholders, never figures.
+    Rust resolves each placeholder from the ledger and audits whether anything else in the
+    note looks like an unreceipted claim. Failures are visible, repairable, and never
+    silently smoothed over.
+  </p>
+  <div class="frame">
+    <svg viewBox="0 0 1100 270" role="img" aria-labelledby="v-title v-desc">
+      <title id="v-title">Claim verification flow</title>
+      <desc id="v-desc">The sandbox writes a metric ledger; the model writes a placeholder-only note; Rust renders it, audits literal digits and unknown ids, and stamps or flags the report.</desc>
+      <defs>
+        <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#17150f" />
+        </marker>
+        <marker id="a2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1e6b4c" />
+        </marker>
+      </defs>
+
+      <text x="550" y="30" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9.5" letter-spacing="1.2" fill="#6b6555">PROVENANCE IS STRUCTURAL, NOT A PROMPT HOPE</text>
+
+      <rect x="16" y="54" width="190" height="104" fill="#fbf8f0" stroke="#17150f" />
+      <text x="111" y="78" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="1.1" fill="#6b6555">1 · SANDBOX</text>
+      <text x="111" y="104" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">executed script writes</text>
+      <text x="111" y="122" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">metrics.json</text>
+      <text x="111" y="143" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">numbers + names</text>
+
+      <rect x="236" y="54" width="190" height="104" fill="#fbf8f0" stroke="#17150f" />
+      <text x="331" y="78" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="1.1" fill="#6b6555">2 · MODEL NOTE</text>
+      <text x="331" y="104" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">placeholders only</text>
+      <text x="331" y="122" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" fill="#1e6b4c">{{m:total_revenue}}</text>
+      <text x="331" y="143" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">zero literal digits</text>
+
+      <rect x="456" y="54" width="190" height="104" fill="#fbf8f0" stroke="#17150f" />
+      <text x="551" y="78" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="1.1" fill="#6b6555">3 · RUST RENDER</text>
+      <text x="551" y="104" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">resolve from ledger</text>
+      <text x="551" y="122" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">attach a receipt chip</text>
+      <text x="551" y="143" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">every value clickable</text>
+
+      <rect x="676" y="54" width="190" height="104" fill="#fbf8f0" stroke="#17150f" />
+      <text x="771" y="78" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="1.1" fill="#6b6555">4 · AUDIT</text>
+      <text x="771" y="104" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">literal digits?</text>
+      <text x="771" y="122" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">unknown metric ids?</text>
+      <text x="771" y="143" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">deterministic scan</text>
+
+      <rect x="896" y="54" width="188" height="104" fill="#f3f7f1" stroke="#1e6b4c" />
+      <text x="990" y="78" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" letter-spacing="1.1" fill="#1e6b4c">5 · STAMP</text>
+      <text x="990" y="104" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">0 flags → verified</text>
+      <text x="990" y="122" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12" fill="#17150f">else → withheld</text>
+      <text x="990" y="143" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" fill="#1e6b4c">failure stays visible</text>
+
+      <line x1="206" y1="106" x2="232" y2="106" stroke="#17150f" marker-end="url(#a2)" />
+      <line x1="426" y1="106" x2="452" y2="106" stroke="#17150f" marker-end="url(#a2)" />
+      <line x1="646" y1="106" x2="672" y2="106" stroke="#17150f" marker-end="url(#a2)" />
+      <line x1="866" y1="106" x2="892" y2="106" stroke="#17150f" marker-end="url(#a2)" />
+
+      <path d="M 771 158 L 771 200 L 331 200 L 331 162" fill="none" stroke="#1e6b4c" marker-end="url(#a2g)" />
+      <text x="550" y="220" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" fill="#1e6b4c">repair loop · max 2 rewrites · every attempt is shown in the run log</text>
+      <text x="550" y="252" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="11" fill="#6b6555">The verifier proves provenance, not analytical taste. A wrong plan can still be receipted — but it can never be anonymous.</text>
+    </svg>
+  </div>
+  <div class="caption">
+    <span>Execution ledger → placeholder note → Rust render → audit → stamp</span>
+    <span>Proofsheet · 2026</span>
+  </div>
+</div>
+</body>
+</html>

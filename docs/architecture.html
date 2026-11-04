@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proofsheet — architecture</title>
+<style>
+  :root {
+    --paper: #f5f0e4;
+    --paper-hi: #fbf8f0;
+    --ink: #17150f;
+    --muted: #6b6555;
+    --faint: #8e8776;
+    --rule: #d9d1be;
+    --green: #1e6b4c;
+    --green-bg: #f3f7f1;
+    --serif: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    padding: 56px 64px 48px;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 500; font-size: 46px;
+    letter-spacing: -.025em; line-height: 1.02; margin: 10px 0 8px;
+  }
+  .lede { color: var(--muted); font-size: 16px; max-width: 78ch; margin: 0 0 26px; }
+  .frame {
+    border: 1px solid var(--rule); background: var(--paper-hi); padding: 22px;
+  }
+  svg { display: block; width: 100%; height: auto; }
+  .caption {
+    display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    margin-top: 12px; font-family: var(--mono); font-size: 10px;
+    letter-spacing: .05em; color: var(--faint);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Proofsheet · architecture · Vultr Agent Rush</div>
+  <h1>The control plane, the model, and the boundary.</h1>
+  <p class="lede">
+    A Rust binary on a Vultr VM profiles the file, asks Vultr Serverless Inference for a
+    plan and a script, dispatches execution to a disposable gVisor sandbox, and verifies
+    the report against the metric ledger. Secrets never cross the dashed line.
+  </p>
+  <div class="frame">
+    <svg viewBox="0 0 1000 430" role="img" aria-labelledby="a-title a-desc">
+      <title id="a-title">Proofsheet architecture</title>
+      <desc id="a-desc">Browser, Rust control plane, Vultr Serverless Inference, and a disposable gVisor sandbox boundary with a per-run workdir and no secrets.</desc>
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#17150f" />
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1e6b4c" />
+        </marker>
+      </defs>
+
+      <!-- browser -->
+      <rect x="18" y="146" width="150" height="126" fill="#fbf8f0" stroke="#17150f" />
+      <text x="93" y="172" text-anchor="middle" font-family="ui-monospace, monospace" font-size="10" letter-spacing="1.3" fill="#6b6555">BROWSER</text>
+      <text x="93" y="197" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12.5" fill="#17150f">React document</text>
+      <text x="93" y="215" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12.5" fill="#17150f">upload · ask · receipts</text>
+      <text x="93" y="242" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9" fill="#8e8776">no model keys</text>
+
+      <!-- control plane -->
+      <rect x="222" y="48" width="310" height="322" fill="#fbf8f0" stroke="#17150f" />
+      <text x="377" y="74" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9.5" letter-spacing="1.3" fill="#6b6555">RUST CONTROL PLANE · AXUM</text>
+      <rect x="242" y="92" width="270" height="40" fill="#f5f0e4" stroke="#d9d1be" />
+      <text x="256" y="110" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600" fill="#17150f">Rust CSV profiler</text>
+      <text x="256" y="124" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">deterministic dirt map · fix counts</text>
+      <rect x="242" y="142" width="270" height="40" fill="#f5f0e4" stroke="#d9d1be" />
+      <text x="256" y="160" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600" fill="#17150f">Planner + code client</text>
+      <text x="256" y="174" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">plan JSON → python script</text>
+      <rect x="242" y="192" width="270" height="40" fill="#f5f0e4" stroke="#d9d1be" />
+      <text x="256" y="210" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600" fill="#17150f">Sandbox orchestrator</text>
+      <text x="256" y="224" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">create · exec · collect · destroy</text>
+      <rect x="242" y="242" width="270" height="40" fill="#f5f0e4" stroke="#d9d1be" />
+      <text x="256" y="260" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600" fill="#17150f">Claim verifier</text>
+      <text x="256" y="274" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">placeholders · literal-digit audit</text>
+      <rect x="242" y="292" width="270" height="40" fill="#f5f0e4" stroke="#d9d1be" />
+      <text x="256" y="310" font-family="-apple-system, sans-serif" font-size="12.5" font-weight="600" fill="#17150f">SQLite + artifacts</text>
+      <text x="256" y="324" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">runs · ledger · PNG · cleaned CSV</text>
+      <text x="377" y="354" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" fill="#8e8776">one static binary · systemd · no keys in the sandbox</text>
+
+      <!-- inference -->
+      <rect x="614" y="48" width="356" height="116" fill="#fbf8f0" stroke="#17150f" />
+      <text x="792" y="74" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9.5" letter-spacing="1.2" fill="#6b6555">VULTR SERVERLESS INFERENCE</text>
+      <text x="792" y="99" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12.5" fill="#17150f">deepseek-v4.1-flash · qwen3.8-27b</text>
+      <text x="792" y="119" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9" fill="#8e8776">OpenAI-compatible · all LLM calls</text>
+      <text x="792" y="141" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8.5" fill="#1e6b4c">plan · code · claim repair</text>
+
+      <!-- sandbox -->
+      <rect x="614" y="212" width="356" height="190" fill="#f3f7f1" stroke="#1e6b4c" stroke-dasharray="5 4" />
+      <text x="792" y="238" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9.5" letter-spacing="1.2" fill="#1e6b4c">SANDBOX BOUNDARY · DISPOSABLE</text>
+      <text x="792" y="264" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12.5" fill="#17150f">gVisor user-space kernel</text>
+      <text x="792" y="284" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12.5" fill="#17150f">read-only root · no network · no secrets</text>
+      <text x="792" y="304" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="12.5" fill="#17150f">time · memory · pid caps</text>
+      <text x="792" y="330" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9" fill="#8e8776">python3 + pandas + matplotlib</text>
+      <text x="792" y="350" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9" fill="#8e8776">/work/input.csv → cleaned.csv · chart.png</text>
+      <text x="792" y="374" text-anchor="middle" font-family="ui-monospace, monospace" font-size="9" fill="#1e6b4c">force-removed after every task →</text>
+
+      <!-- arrows -->
+      <line x1="168" y1="208" x2="220" y2="208" stroke="#17150f" marker-end="url(#arrow)" />
+      <text x="194" y="200" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8" fill="#6b6555">file</text>
+      <line x1="222" y1="170" x2="172" y2="170" stroke="#17150f" marker-end="url(#arrow)" />
+      <text x="197" y="162" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8" fill="#6b6555">report</text>
+      <line x1="400" y1="48" x2="660" y2="44" stroke="#17150f" marker-end="url(#arrow)" />
+      <line x1="700" y1="44" x2="440" y2="48" stroke="#17150f" marker-end="url(#arrow)" />
+      <text x="550" y="34" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8" fill="#6b6555">prompts / completions</text>
+      <line x1="532" y1="240" x2="608" y2="280" stroke="#1e6b4c" marker-end="url(#arrow-green)" />
+      <line x1="614" y1="312" x2="536" y2="272" stroke="#1e6b4c" marker-end="url(#arrow-green)" />
+      <text x="572" y="252" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8" fill="#1e6b4c">script</text>
+      <text x="572" y="330" text-anchor="middle" font-family="ui-monospace, monospace" font-size="8" fill="#1e6b4c">ledger</text>
+    </svg>
+  </div>
+  <div class="caption">
+    <span>Rust control plane on Vultr Cloud Compute · gVisor sandbox · all inference through Vultr Serverless Inference</span>
+    <span>Proofsheet · 2026</span>
+  </div>
+</div>
+</body>
+</html>
